@@ -1,0 +1,2777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - GreenGhana Alliance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables for Color Palette (consistent with homepage) */
+        :root {
+            --primary-green: #2E7D32; /* Deep Forest Green */
+            --secondary-blue: #2196F3; /* Vibrant Sky Blue */
+            --accent-orange: #FF9800; /* Energetic Sunrise Orange */
+            --light-green: #81C784;
+            --dark-green: #1B5E20;
+            --light-blue: #BBDEFB;
+            --dark-blue: #1565C0;
+            --neutral-gray: #424242;
+            --light-gray: #EEEEEE;
+            --white: #FFFFFF;
+            --dark-orange-hover: #E68A00; /* Slightly darker orange for hover */
+            --correct-answer: #4CAF50; /* Green for correct */
+            --incorrect-answer: #F44336; /* Red for incorrect */
+            --uncommitted-red: #D32F2F; /* Red for uncommitted progress */
+            --premium-bg-light: rgba(255, 255, 255, 0.8); /* Lighter translucent white */
+            --premium-border: rgba(255, 255, 255, 0.6); /* Slightly more opaque white border */
+            --premium-shadow-light: rgba(0, 0, 0, 0.05);
+            --premium-shadow-medium: rgba(0, 0, 0, 0.15);
+            --premium-shadow-strong: rgba(0, 0, 0, 0.25);
+        }
+
+        /* Global Body Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--neutral-gray);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scroll due to sidebar */
+        }
+
+        /* Headings Styling */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-green);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark-green);
+            display: flex; /* Allow icon and text to be on same line */
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Space between icon and text */
+        }
+
+        /* Animated Icons for Section Titles (from Act Now page) */
+        .section-title-icon {
+            font-size: 1.2em; /* Slightly larger than text */
+            color: var(--accent-orange);
+            animation: pulse 2s infinite ease-in-out; /* Subtle pulsing animation */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Header and Navigation Bar Styling (from Act Now page) */
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1em 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            color: var(--white);
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Hamburger Menu Toggle */
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 4px 0;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+
+        /* Navigation Links (Desktop) */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        /* Google Sign-In/Out Buttons (Now within modal) */
+        .modal-google-sign-in-btn, .modal-sign-out-btn {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin: 10px auto; /* Center buttons in modal */
+        }
+
+        .modal-google-sign-in-btn {
+            background-image: linear-gradient(to right, #4285F4 0%, #2962FF 100%); /* Google Blue */
+        }
+
+        .modal-sign-out-btn {
+            background-image: linear-gradient(to right, #FF5722 0%, #E64A19 100%); /* Red for Sign Out */
+        }
+
+        .modal-google-sign-in-btn:hover, .modal-sign-out-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        #user-auth-status {
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+
+        /* Main Content Area */
+        /* main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        } */
+
+        /* Hero Section Styling */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.746), rgba(0, 0, 0, 0.73)), url('pics/landinblg.png');
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .hero-section h1 {
+            font-size: 3.8em; /* Larger, bolder text */
+            color: var(--accent-orange);
+            margin-bottom: 15px;
+            font-weight: 800; /* Even bolder */
+            text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.786);
+        }
+
+        /* Sub-headline for the page */
+        .page-sub-headline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2em; /* Larger font size */
+            text-align: center;
+            color: var(--secondary-blue); /* Contrasting color */
+            margin-bottom: 60px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Content Sections Styling (Updated for premium feel) */
+        .content-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .content-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .content-section .section-header {
+            margin-bottom: 40px;
+        }
+
+        .content-section .section-header h2 {
+            font-size: 2.5em;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .content-section .section-header h3 {
+            font-size: 1.6em;
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+
+        .content-section .text-block {
+            font-size: 1.1em;
+            color: var(--neutral-gray);
+            margin-bottom: 30px;
+            text-align: justify;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        /* Quiz Section Styling (Premium Look) */
+        .quiz-section {
+            background-color: var(--light-blue);
+            padding: 60px 20px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            box-shadow: 0 5px 15px var(--premium-shadow-light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: var(--premium-bg-light);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--premium-shadow-medium);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px) saturate(150%);
+            -webkit-backdrop-filter: blur(8px) saturate(150%);
+            border: 1px solid var(--premium-border);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .quiz-container:hover {
+            box-shadow: 0 15px 40px var(--premium-shadow-strong);
+            transform: translateY(-3px);
+        }
+
+        /* Make quiz-start-screen position relative for the settings button */
+        .quiz-start-screen {
+            padding: 20px;
+            position: relative; /* Crucial for positioning the settings button inside */
+        }
+
+        .quiz-start-screen label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--dark-green);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .quiz-start-screen input[type="text"] {
+            width: calc(100% - 40px);
+            padding: 14px 18px;
+            margin-bottom: 30px;
+            border: 1px solid var(--light-green);
+            border-radius: 10px;
+            font-size: 1.05em;
+            color: var(--neutral-gray);
+            box-sizing: border-box;
+            background-color: var(--light-gray);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .quiz-start-screen input[type="text"]:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.3);
+            background-color: var(--white);
+        }
+
+
+        .quiz-question-display {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Question transition animations */
+        .quiz-question-display.slide-out-left {
+            opacity: 0;
+            transform: translateX(-100%);
+            position: absolute;
+        }
+        .quiz-question-display.slide-in-right {
+            opacity: 0;
+            transform: translateX(100%);
+            position: absolute;
+        }
+        .quiz-question-display.active-question {
+             opacity: 1;
+             transform: translateX(0);
+             position: relative;
+        }
+
+
+        .quiz-question {
+            font-size: 1.8em;
+            color: var(--dark-green);
+            margin-bottom: 30px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .quiz-option {
+            background-color: var(--light-gray);
+            border: 2px solid var(--light-green);
+            padding: 18px 25px;
+            border-radius: 10px;
+            font-size: 1.15em;
+            color: var(--neutral-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .quiz-option:hover {
+            background-color: var(--light-blue);
+            border-color: var(--secondary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .quiz-option.correct {
+            background-color: var(--correct-answer);
+            border-color: var(--correct-answer);
+            color: var(--white);
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .quiz-option.incorrect {
+            background-color: var(--incorrect-answer);
+            border-color: var(--incorrect-answer);
+            color: var(--white);
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .quiz-option .feedback-icon {
+            font-size: 1.8em;
+            margin-left: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .quiz-option.correct .feedback-icon.fa-check-circle,
+        .quiz-option.incorrect .feedback-icon.fa-times-circle {
+            opacity: 1;
+        }
+
+        .quiz-navigation-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .quiz-button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.15em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .quiz-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .quiz-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .quiz-button:disabled {
+            background-image: none;
+            background-color: var(--light-gray);
+            color: var(--neutral-gray);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+            border: 1px solid var(--neutral-gray);
+        }
+
+        .quiz-results-screen h3 {
+            font-size: 2.5em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .quiz-results-screen .feedback-icon-results {
+            font-size: 4em;
+            color: var(--accent-orange);
+            margin-bottom: 20px;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .quiz-results-screen p {
+            font-size: 1.2em;
+            color: var(--neutral-gray);
+            margin-bottom: 25px;
+        }
+
+        .quiz-results-screen .score {
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .quiz-results-screen .feedback {
+            font-style: italic;
+            color: var(--secondary-blue);
+            margin-bottom: 35px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .quiz-results-screen .relevant-resources {
+            margin-top: 40px;
+            border-top: 1px solid var(--light-gray);
+            padding-top: 30px;
+        }
+
+        .quiz-results-screen .relevant-resources h4 {
+            font-size: 1.5em;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .quiz-results-screen .relevant-resources ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .quiz-results-screen .relevant-resources li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-results-screen .relevant-resources a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .quiz-results-screen .relevant-resources a:hover {
+            color: var(--accent-orange);
+            text-decoration: underline;
+        }
+
+        .quizmaster {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-size: 3.5em;
+            color: var(--dark-green);
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Leaderboard Section Styling (Premium Look) */
+        #leaderboard-section {
+            background-color: var(--premium-bg-light);
+            padding: 60px 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light);
+            text-align: center;
+            backdrop-filter: blur(5px) saturate(150%);
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #leaderboard-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium);
+            transform: translateY(-3px);
+        }
+
+        #leaderboard-section h2 {
+            font-size: 2.5em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        #leaderboard-section h3 {
+            font-size: 1.6em;
+            color: var(--secondary-blue);
+            margin-bottom: 40px;
+        }
+
+        .leaderboard-table-container {
+            max-width: 700px;
+            margin: 0 auto;
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1em;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 15px 20px;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+
+        .leaderboard-table th {
+            background-color: var(--primary-green);
+            color: var(--white);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1em;
+        }
+
+        .leaderboard-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: var(--light-blue);
+            transform: scale(1.01);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .leaderboard-table td:first-child {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1.1em;
+        }
+
+        .leaderboard-message {
+            margin-top: 30px;
+            font-style: italic;
+            color: var(--neutral-gray);
+            font-size: 1em;
+        }
+
+        /* Educational Resources Styling (Premium Look) */
+        .resources-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 950px;
+        }
+
+        .resource-item {
+            background-color: var(--premium-bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px var(--premium-shadow-light);
+            text-align: left;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid var(--premium-border);
+        }
+
+        .resource-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 20px var(--premium-shadow-medium);
+        }
+
+        .resource-item h4 {
+            font-size: 1.3em;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .resource-item .type {
+            font-size: 0.9em;
+            color: var(--neutral-gray);
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .resource-item p {
+            font-size: 1em;
+            color: var(--neutral-gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .resource-item a {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .resource-item a:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Expert Interviews Styling (Premium Look) */
+        .interview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .interview-card {
+            background-color: var(--premium-bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--premium-shadow-light);
+            transition: all 0.3s ease-in-out;
+            text-align: left;
+            border: 1px solid var(--premium-border);
+        }
+
+        .interview-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--premium-shadow-medium);
+        }
+
+        .interview-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .interview-card .content {
+            padding: 25px;
+        }
+
+        .interview-card h4 {
+            font-size: 1.4em;
+            color: var(--dark-green);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .interview-card p {
+            font-size: 1em;
+            color: var(--neutral-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .interview-card .cta-link {
+            display: inline-block;
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .interview-card .cta-link:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        /* Footer Styling (consistent with homepage) */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--light-green);
+            text-decoration: none;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            justify-content: flex-start;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.8em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        /* Styling for the newsletter description text */
+        .newsletter-description {
+            color: var(--light-green);
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .newsletter-form button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 990;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Sidebar Styling (from Act Now page) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--dark-green);
+            padding-top: 80px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 999;
+            color: var(--white);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h3 {
+            color: var(--white);
+            font-size: 1.5em;
+            padding: 0 20px 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--primary-green);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: var(--primary-green);
+            color: var(--accent-orange);
+        }
+
+        .sidebar-section-title {
+            color: var(--light-green);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            padding: 15px 20px 5px;
+            margin-top: 20px;
+            font-weight: 700;
+        }
+
+        /* Overlay for when sidebar is open (from Act Now page) */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal / Pop-up Styles (New Glass-like Design - from Act Now page) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: var(--dark-green);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-card h3 {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .modal-card p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: var(--neutral-gray);
+        }
+
+        .modal-card .cta-button {
+            padding: 12px 30px;
+            font-size: 1.05em;
+        }
+
+        .modal-card .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: var(--dark-green);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .modal-card .close-btn:hover {
+            color: var(--uncommitted-red);
+            transform: rotate(90deg);
+        }
+
+        /* Share Modal Specific Styling */
+        .share-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .share-links a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--neutral-gray);
+            font-size: 0.9em;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .share-links a i {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .share-links a:hover {
+            transform: translateY(-5px);
+            color: var(--dark-blue);
+        }
+
+        .share-links a.facebook i { color: #1877F2; }
+        .share-links a.twitter i { color: #1DA1F2; }
+        .share-links a.whatsapp i { color: #25D366; }
+        .share-links a.linkedin i { color: #0A66C2; }
+        .share-links a.email i { color: #D44638; }
+
+        /* Settings Button specific style */
+        #settings-btn {
+            position: absolute;
+            top: 15px; /* Adjusted to be inside the start card */
+            right: 15px; /* Adjusted to be inside the start card */
+            background-color: var(--primary-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            display: block !important; /* Made visible by default for testing */
+            z-index: 10; /* Ensure it's above other start screen elements if needed */
+        }
+
+        #settings-btn:hover {
+            background-color: var(--dark-green);
+            transform: rotate(45deg) scale(1.05);
+        }
+
+        /* Settings Modal specific styles */
+        #leaderboard-settings-modal .modal-card {
+            max-width: 600px; /* Wider for leaderboard table */
+            padding: 30px;
+        }
+
+        #leaderboard-settings-modal h3 {
+            margin-bottom: 25px;
+        }
+
+        #leaderboard-settings-modal .settings-actions {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        #leaderboard-settings-modal .settings-actions .quiz-button {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        #leaderboard-settings-modal .settings-table-container {
+            max-height: 300px; /* Scrollable for many entries */
+            overflow-y: auto;
+            margin-top: 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+        }
+
+        #leaderboard-settings-modal .leaderboard-table th,
+        #leaderboard-settings-modal .leaderboard-table td {
+            padding: 10px 15px;
+            font-size: 0.95em;
+        }
+
+        #leaderboard-settings-modal .leaderboard-table td:last-child {
+            text-align: center;
+        }
+
+        /* Styled delete button */
+        #leaderboard-settings-modal .delete-score-btn {
+            background-image: linear-gradient(to right, var(--uncommitted-red) 0%, #B71C1C 100%);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px; /* Slightly more padding */
+            border-radius: 8px; /* More rounded */
+            cursor: pointer;
+            font-size: 0.9em; /* Slightly larger font */
+            font-weight: 600; /* Bolder text */
+            transition: all 0.3s ease; /* Smooth transitions */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add shadow */
+            display: inline-block; /* Ensure it behaves like other buttons */
+        }
+
+        #leaderboard-settings-modal .delete-score-btn:hover {
+            background-position: 100% 0; /* Gradient shift on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Deeper shadow on hover */
+        }
+
+        #leaderboard-settings-modal .delete-score-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* AI Explanation Feature Styles */
+        .ai-explanation-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light-blue);
+            border-radius: 10px;
+            border: 1px solid var(--secondary-blue);
+            text-align: left;
+            box-shadow: inset 0 0 8px rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .ai-explanation-container.active {
+            max-height: 200px; /* Adjust as needed, or use JS to calculate */
+            opacity: 1;
+            padding: 20px; /* Restore padding when active */
+        }
+
+        .ai-explanation-text {
+            color: var(--neutral-gray);
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .ai-explain-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            background-image: linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .ai-explain-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+
+        .ai-explain-button:disabled {
+            background-image: none;
+            background-color: var(--light-gray);
+            color: var(--neutral-gray);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+            border: 1px solid var(--neutral-gray);
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .nav-links li {
+                margin-left: 10px;
+            }
+            .interview-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .content-section, .quiz-section, #leaderboard-section {
+                padding: 50px 30px;
+            }
+            .quiz-container {
+                padding: 30px;
+            }
+            .resource-item, .interview-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+            .page-sub-headline {
+                font-size: 1.8em;
+            }
+            .content-section .section-header h2 {
+                font-size: 2em;
+            }
+            .content-section .section-header h3 {
+                font-size: 1.4em;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                min-width: auto;
+                width: 100%;
+                text-align: center;
+            }
+            .newsletter-form {
+                align-items: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+            /* Quiz section adjustments */
+            .quiz-question {
+                font-size: 1.5em;
+                margin-bottom: 25px;
+            }
+            .quiz-option {
+                font-size: 1.05em;
+                padding: 15px 20px;
+            }
+            .quiz-button {
+                font-size: 1.05em;
+                padding: 12px 25px;
+            }
+            .quiz-results-screen .score {
+                font-size: 2.5em;
+            }
+            .quiz-results-screen p {
+                font-size: 1.1em;
+            }
+            .quizmaster {
+                font-size: 3em;
+            }
+            /* Leaderboard adjustments */
+            #leaderboard-section h2 {
+                font-size: 2em;
+            }
+            #leaderboard-section h3 {
+                font-size: 1.4em;
+            }
+            .leaderboard-table th, .leaderboard-table td {
+                padding: 10px 12px;
+                font-size: 1em;
+            }
+            /* Resources & Interviews adjustments */
+            .resource-item, .interview-card {
+                padding: 25px;
+            }
+            .resource-item h4, .interview-card h4 {
+                font-size: 1.2em;
+            }
+            .resource-item p, .interview-card p {
+                font-size: 0.95em;
+            }
+            .resource-item a, .interview-card .cta-link {
+                font-size: 0.95em;
+                padding: 10px 20px;
+            }
+            .interview-grid {
+                grid-template-columns: 1fr;
+            }
+            #settings-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1em;
+                top: 10px; /* Adjusted for smaller screens */
+                right: 10px; /* Adjusted for smaller screens */
+            }
+            #leaderboard-settings-modal .modal-card {
+                padding: 20px;
+            }
+            #leaderboard-settings-modal .settings-actions .quiz-button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .ai-explain-button {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 60px 15px;
+            }
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            .page-sub-headline {
+                font-size: 1.5em;
+                margin-bottom: 40px;
+            }
+            .content-section {
+                padding: 30px 15px;
+            }
+            .content-section .section-header h2 {
+                font-size: 1.8em;
+            }
+            .content-section .section-header h3 {
+                font-size: 1.2em;
+            }
+            /* Quiz section mobile adjustments */
+            .quiz-container {
+                padding: 25px;
+                border-radius: 15px;
+            }
+            .quiz-start-screen label {
+                font-size: 1em;
+            }
+            .quiz-start-screen input[type="text"] {
+                padding: 10px 12px;
+                font-size: 0.95em;
+            }
+            .quiz-question {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+            .quiz-options {
+                gap: 12px;
+            }
+            .quiz-option {
+                font-size: 0.95em;
+                padding: 12px 15px;
+            }
+            .quiz-option .feedback-icon {
+                font-size: 1.5em;
+            }
+            .quiz-navigation-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .quiz-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+            .quiz-results-screen .score {
+                font-size: 2em;
+            }
+            .quiz-results-screen p {
+                font-size: 1em;
+            }
+            .quizmaster {
+                font-size: 2.8em;
+                top: 15px;
+                left: 15px;
+            }
+            /* Leaderboard mobile adjustments */
+            #leaderboard-section {
+                padding: 30px 15px;
+            }
+            #leaderboard-section h2 {
+                font-size: 1.8em;
+            }
+            #leaderboard-section h3 {
+                font-size: 1.2em;
+            }
+            .leaderboard-table th, .leaderboard-table td {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            /* Resources & Interviews mobile adjustments */
+            .resource-item, .interview-card {
+                padding: 18px;
+                border-radius: 12px;
+            }
+            .resource-item h4, .interview-card h4 {
+                font-size: 1.1em;
+            }
+            .resource-item p, .interview-card p {
+                font-size: 0.9em;
+            }
+            .resource-item a, .interview-card .cta-link {
+                font-size: 0.85em;
+                padding: 8px 15px;
+            }
+            .interview-card img {
+                height: 150px;
+            }
+            .share-links {
+                gap: 10px;
+            }
+            .share-links a i {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>GreenGhana Alliance</h1>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="learn.html" class="active">Learn</a></li>
+                <li><a href="act-now.html">Act Now</a></li>
+                <li><a href="media.html">Media</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <h3 class="sidebar-section-title">GreenGhana Alliance</h3>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="learn.html"><i class="fas fa-book-open"></i> Learn</a></li>
+            <li><a href="act-now.html"><i class="fas fa-leaf"></i> Act Now</a></li>
+            <li><a href="media.html"><i class="fas fa-photo-video"></i> Media</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us & Contact</a></li>
+        </ul>
+        <h3 class="sidebar-section-title">Page Sections</h3>
+        <ul>
+            <li><a href="#quiz-section"><i class="fas fa-question-circle"></i> Quiz</a></li>
+            <li><a href="#leaderboard-section"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+            <li><a href="#educational-resources"><i class="fas fa-book"></i> Educational Resources</a></li>
+            <li><a href="#expert-interviews"><i class="fas fa-user-tie"></i> Expert Interviews</a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+        <section class="hero-section">
+            <h1>Test Your Climate Knowledge!</h1>
+        </section>
+
+        <h2 class="page-sub-headline">Expand Your Knowledge on Climate Change</h2>
+
+        <section id="quiz-section" class="quiz-section content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-question-circle section-title-icon"></i> Quiz: Test Your Climate Change Knowledge</h2>
+                <h3>Challenge yourself with our interactive quiz</h3>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quizmaster"><i class="fas fa-brain"></i></div>
+
+                <div id="quiz-start-screen" class="quiz-start-screen">
+                    <button id="settings-btn" style="display: block;"><i class="fas fa-cog"></i></button>
+                    <p class="text-block">Are you ready to test your understanding of climate change? This quiz will challenge you with questions on causes, impacts, and solutions. Let's see how much you know!</p>
+                    <label for="display-name-input">Enter your display name for the leaderboard (e.g., ClimateHero):</label>
+                    <input type="text" id="display-name-input" placeholder="Your Name/Alias" required>
+                    <button id="start-quiz-btn" class="quiz-button">Start Quiz</button>
+                </div>
+
+                <div id="quiz-question-display" class="quiz-question-display" style="display: none;">
+                    <p class="quiz-question" id="question-text"></p>
+                    <div class="quiz-options" id="answer-options">
+                    </div>
+                    <div id="ai-explanation-container" class="ai-explanation-container">
+                        <p class="ai-explanation-text" id="ai-explanation-text"></p>
+                        <button id="ai-explain-btn" class="quiz-button ai-explain-button" style="display: none;">✨ Explain More</button>
+                    </div>
+                    <div class="quiz-navigation-buttons">
+                        <button id="next-question-btn" class="quiz-button" style="display: none;" disabled>Next Question</button>
+                        <button id="submit-quiz-btn" class="quiz-button" style="display: none;" disabled>Submit Answers</button>
+                    </div>
+                </div>
+
+                <div id="quiz-results-screen" class="quiz-results-screen" style="display: none;">
+                    <h3>Quiz Results</h3>
+                    <i class="fas fa-award feedback-icon-results"></i>
+                    <p>You scored: <span class="score" id="final-score">0/0</span></p>
+                    <p class="feedback" id="quiz-feedback"></p>
+                    <div class="relevant-resources">
+                        <h4>Relevant Resources to Boost Your Knowledge:</h4>
+                        <ul>
+                            <li><a href="learn-article-1.html" target="_blank">The Science of Climate Change: A Beginner's Guide</a></li>
+                            <li><a href="learn-video-series-1.html" target="_blank">Video Series: Climate Solutions for Africa</a></li>
+                            <li><a href="learn-webinar-1.html" target="_blank">Webinar: Renewable Energy Transition in Ghana</a></li>
+                        </ul>
+                    </div>
+                    <div class="quiz-navigation-buttons" style="margin-top: 30px;">
+                        <button id="submit-score-btn" class="quiz-button">Submit Score to Leaderboard</button>
+                        <button id="retake-quiz-btn" class="quiz-button">Retake Quiz</button>
+                        <button id="back-to-learn-btn" class="quiz-button" onclick="location.href='learn.html'">Back to Learn</button>
+                    </div>
+                    <p class="leaderboard-message" id="leaderboard-encouragement"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="leaderboard-section" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy section-title-icon"></i> Climate Knowledge Leaderboard</h2>
+                <h3>Can you beat the top scores and become a Climate Champion?</h3>
+            </div>
+            <div class="leaderboard-table-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        </tbody>
+                </table>
+            </div>
+            <p class="leaderboard-message" id="empty-leaderboard-message" style="display: none;">
+                No scores yet! Be the first to take the quiz and appear on the leaderboard!
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: var(--neutral-gray);">
+                Your privacy is important to us. Only your chosen display name and score will be shown.
+                Read our <a href="#" style="color: var(--secondary-blue); text-decoration: underline;">Privacy Policy</a>.
+            </p>
+        </section>
+
+        <section id="educational-resources" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-book-open section-title-icon"></i> Educational Resources</h2>
+                <h3>Learn more with articles, videos, and webinars</h3>
+            </div>
+            <p class="text-block">Want to deepen your understanding? Explore our curated collection of educational materials, designed to provide comprehensive insights into various aspects of climate change.</p>
+            <ul class="resources-list">
+                <li class="resource-item">
+                    <h4>The Science of Climate Change: A Beginner's Guide</h4>
+                    <p class="type">Article</p>
+                    <p>Understand the fundamental scientific principles behind climate change and its global implications.</p>
+                    <a href="learn-article-1.html" target="_blank">Read More</a>
+                </li>
+                <li class="resource-item">
+                    <h4>Video Series: Climate Solutions for Africa</h4>
+                    <p class="type">Video Series</p>
+                    <p>A compelling series showcasing innovative climate solutions being implemented across the African continent.</p>
+                    <a href="learn-video-series-1.html" target="_blank">Watch Now</a>
+                </li>
+                <li class="resource-item">
+                    <h4>Webinar: Renewable Energy Transition in Ghana</h4>
+                    <p class="type">Webinar</p>
+                    <p>Experts discuss the challenges and opportunities for Ghana to transition to renewable energy sources.</p>
+                    <a href="learn-webinar-1.html" target="_blank">View Webinar</a>
+                </li>
+            </ul>
+            <!-- <button class="cta-button" onclick="location.href='all-learn-resources.html'">Explore More Resources</button> -->
+        </section>
+
+        <section id="expert-interviews" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-user-tie section-title-icon"></i> Expert Interviews</h2>
+                <h3>Gain insights from climate change leaders</h3>
+            </div>
+            <p class="text-block">Hear directly from leading climate scientists, environmental activists, and policy makers. Their perspectives offer valuable insights into the complexities of climate change and paths forward.</p>
+            <div class="interview-grid">
+                <div class="interview-card">
+                    <img loading="lazy" src="https://placehold.co/300x200/2E7D32/FFFFFF?text=Scientist+Interview" alt="Thumbnail for an and interview with a climate scientist">
+                    <div class="content">
+                        <h4>Dr. Anya Sharma on Global Warming Trends</h4>
+                        <p>A deep dive into the latest data on rising global temperatures and future projections.</p>
+                        <a href="interview-1.html" class="cta-link">Watch Interview</a>
+                    </div>
+                </div>
+                <div class="interview-card">
+                    <img loading="lazy" src="https://placehold.co/300x200/2196F3/FFFFFF?text=Activist+Interview" alt="Thumbnail for an interview with an environmental activist">
+                    <div class="content">
+                        <h4>Kwame Mensah: Grassroots Climate Action in Ghana</h4>
+                        <p>An inspiring conversation with a local activist leading community-based environmental projects.</p>
+                        <a href="interview-2.html" class="cta-link">Watch Interview</a>
+                    </div>
+                </div>
+                <div class="interview-card">
+                    <img loading="lazy" src="https://placehold.co/300x200/FF9800/FFFFFF?text=Policy+Interview" alt="Thumbnail for an interview with a policy maker">
+                    <div class="content">
+                        <h4>Minister Ama Opoku on Ghana's Climate Policy</h4>
+                        <p>Insights into the government's strategies and challenges in addressing climate change nationally.</p>
+                        <a href="interview-3.html" class="cta-link">Watch Interview</a>
+                    </div>
+                </div>
+            </div>
+            <!-- <button class="cta-button" onclick="location.href='all-interviews.html'">Watch All Interviews</button> -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GreenGhana Alliance</h3>
+                <p>&copy; 2025 All rights reserved.</p>
+                <p>Empowering youth for a sustainable Ghana.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="act-now.html">Act Now</a>
+                <a href="media.html">Media</a>
+                <a href="about.html">About Us & Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/learn.html" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com/learn.html&text=Test%20your%20climate%20knowledge%20with%20this%20quiz%20from%20GreenGhana%20Alliance!" target="_blank" rel="noopener noreferrer" class="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://api.whatsapp.com/send?text=Test%20your%20climate%20knowledge%20with%20this%20quiz%20from%20GreenGhana%20Alliance!%20https://yourwebsite.com/learn.html" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:?subject=Test%20your%20climate%20knowledge!&body=Test%20your%20climate%20knowledge%20with%20this%20quiz%20from%20GreenGhana%20Alliance!%20https://yourwebsite.com/learn.html" target="_blank" rel="noopener noreferrer" class="email" aria-label="Share via Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Updated</h3>
+                <p class="newsletter-description">Stay informed with our latest news and updates.</p>
+                <form class="newsletter-form" id="footer-newsletter-form">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <button class="back-to-top" id="backToTopBtn"><i class="fas fa-arrow-up"></i></button>
+    </footer>
+
+    <div class="modal-overlay" id="customMessageBoxOverlay">
+        <div class="modal-card" id="customMessageBoxCard">
+            <button class="close-btn" id="closeMessageBox">&times;</button>
+            <h3 id="messageBoxTitle"></h3>
+            <div id="messageBoxContent"></div>
+            <a href="#" class="quiz-button" id="messageBoxButton">OK</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="leaderboard-settings-modal">
+        <div class="modal-card">
+            <button class="close-btn" id="closeLeaderboardSettings">&times;</button>
+            <h3>Leaderboard Settings</h3>
+            <div class="settings-actions">
+                <button id="reset-all-scores-btn" class="quiz-button">Reset All Scores</button>
+            </div>
+            <h4>Current Scores (for individual deletion):</h4>
+            <p class="leaderboard-message" id="settings-empty-message" style="display: none;">
+                No scores to display for deletion.
+            </p>
+            <div class="settings-table-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="settings-leaderboard-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-card">
+            <button class="close-btn" id="closeAuthModal">&times;</button>
+            <h3>Authentication & Settings</h3>
+            <p id="user-auth-status">Loading authentication status...</p>
+
+            <button id="modal-google-sign-in-btn" class="modal-google-sign-in-btn">
+                <i class="fab fa-google" style="margin-right: 8px;"></i>Sign in (Admin)
+            </button>
+            <button id="modal-sign-out-btn" class="modal-sign-out-btn" style="display: none;">Sign Out</button>
+
+            <div id="admin-settings-access" style="margin-top: 20px; display: none;">
+                <button id="go-to-admin-settings-btn" class="quiz-button">Go to Admin Settings</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, query, /* orderBy, */ limit, addDoc, onSnapshot, where, deleteDoc, writeBatch, Timestamp, getDocs, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+        // Get elements
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('navLinks');
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        // Quiz elements
+        const quizStartScreen = document.getElementById('quiz-start-screen');
+        const displayNameInput = document.getElementById('display-name-input');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const quizQuestionDisplay = document.getElementById('quiz-question-display');
+        const questionText = document.getElementById('question-text');
+        const answerOptions = document.getElementById('answer-options');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+        const quizResultsScreen = document.getElementById('quiz-results-screen');
+        const finalScore = document.getElementById('final-score');
+        const quizFeedback = document.getElementById('quiz-feedback');
+        const submitScoreBtn = document.getElementById('submit-score-btn');
+        const retakeQuizBtn = document.getElementById('retake-quiz-btn');
+        const leaderboardEncouragement = document.getElementById('leaderboard-encouragement');
+        const resultsFeedbackIcon = document.querySelector('.feedback-icon-results');
+
+        // AI Explanation elements
+        const aiExplanationContainer = document.getElementById('ai-explanation-container');
+        const aiExplanationText = document.getElementById('ai-explanation-text');
+        const aiExplainBtn = document.getElementById('ai-explain-btn');
+
+        // Leaderboard elements
+        const leaderboardBody = document.getElementById('leaderboard-body');
+        const emptyLeaderboardMessage = document.getElementById('empty-leaderboard-message');
+
+        // Settings elements
+        const settingsBtn = document.getElementById('settings-btn');
+        const leaderboardSettingsModal = document.getElementById('leaderboard-settings-modal');
+        const closeLeaderboardSettingsBtn = document.getElementById('closeLeaderboardSettings');
+        const resetAllScoresBtn = document.getElementById('reset-all-scores-btn');
+        const settingsLeaderboardBody = document.getElementById('settings-leaderboard-body');
+        const settingsEmptyMessage = document.getElementById('settings-empty-message');
+
+        // NEW Auth Modal Elements
+        const authModal = document.getElementById('auth-modal');
+        const closeAuthModalBtn = document.getElementById('closeAuthModal');
+        const userAuthStatus = document.getElementById('user-auth-status');
+        const modalGoogleSignInBtn = document.getElementById('modal-google-sign-in-btn');
+        const modalSignOutBtn = document.getElementById('modal-sign-out-btn');
+        const adminSettingsAccess = document.getElementById('admin-settings-access');
+        const goToAdminSettingsBtn = document.getElementById('go-to-admin-settings-btn');
+
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let userName = '';
+        let selectedQuizQuestions = [];
+
+        // Firebase variables
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let userEmail = null; // To store the authenticated user's email
+
+        const ADMIN_EMAIL = 'selasikwame2006@gmail.com'; // Your admin email
+
+
+        // Initialize Firebase
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            console.log("Firebase initialized. App ID:", appId);
+            console.log("Firebase Config:", firebaseConfig);
+
+
+            // --- Google Sign-In Integration (now in modal) ---
+            if (modalGoogleSignInBtn && modalSignOutBtn && auth) {
+                modalGoogleSignInBtn.addEventListener('click', async () => {
+                    const provider = new GoogleAuthProvider();
+                    try {
+                        await signInWithPopup(auth, provider);
+                        // onAuthStateChanged will handle UI updates
+                        displayMessageBox('Signed In!', 'You have successfully signed in with your Google account. If your email matches the admin email, you now have settings access.', 'success');
+                        authModal.classList.remove('active'); // Close auth modal on successful sign-in
+                    } catch (error) {
+                        console.error("Error signing in with Google:", error);
+                        displayMessageBox('Sign-In Failed', `Error: ${error.message}`, 'error');
+                    }
+                });
+
+                modalSignOutBtn.addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        // onAuthStateChanged will handle UI updates
+                        displayMessageBox('Signed Out', 'You have been signed out.', 'info');
+                        authModal.classList.remove('active'); // Close auth modal on successful sign-out
+                    } catch (error) {
+                        console.error("Error signing out:", error);
+                        displayMessageBox('Sign-Out Failed', `Error: ${error.message}`, 'error');
+                    }
+                });
+            }
+
+            // Authenticate user and check admin status
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    userId = user.uid;
+                    userEmail = user.email;
+                    console.log("User authenticated:", userId, "Email:", userEmail);
+
+                    // Update Auth Modal UI
+                    modalGoogleSignInBtn.style.display = 'none';
+                    modalSignOutBtn.style.display = 'inline-block';
+                    if (userEmail === ADMIN_EMAIL) {
+                        userAuthStatus.textContent = `Signed in as: Admin (${user.displayName || user.email})`;
+                        adminSettingsAccess.style.display = 'block'; // Show admin settings button
+                    } else {
+                        userAuthStatus.textContent = `Signed in as: ${user.displayName || user.email || 'User'}`;
+                        adminSettingsAccess.style.display = 'none'; // Hide admin settings button for non-admin
+                    }
+
+                    renderLeaderboard(); // Render leaderboard after authentication
+                    cleanupOldScores(); // Clean up old scores on load
+                } else {
+                    // Not authenticated
+                    userId = null;
+                    userEmail = null;
+                    console.log("User not authenticated, or signed out.");
+                    
+                    // Update Auth Modal UI
+                    userAuthStatus.textContent = 'Not signed in.';
+                    modalGoogleSignInBtn.style.display = 'inline-block';
+                    modalSignOutBtn.style.display = 'none';
+                    adminSettingsAccess.style.display = 'none'; // Hide admin settings button
+
+                    // Attempt anonymous sign-in if no user is found and initial token is available
+                    if (typeof __initial_auth_token !== 'undefined') {
+                        signInWithCustomToken(auth, __initial_auth_token)
+                            .then((userCredential) => {
+                                userId = userCredential.user.uid;
+                                userEmail = userCredential.user.email; // This might be null for custom tokens not tied to email
+                                console.log("Signed in with custom token:", userId, "Email:", userEmail);
+                                // Re-run UI update logic for the auth modal
+                                if (userEmail === ADMIN_EMAIL) {
+                                    userAuthStatus.textContent = `Signed in as: Admin (${userCredential.user.displayName || userCredential.user.email})`;
+                                    adminSettingsAccess.style.display = 'block';
+                                } else {
+                                    userAuthStatus.textContent = `Signed in as: Guest User (${userCredential.user.displayName || userCredential.user.email || 'Anonymous'})`;
+                                    adminSettingsAccess.style.display = 'none';
+                                }
+                                modalGoogleSignInBtn.style.display = 'none';
+                                modalSignOutBtn.style.display = 'inline-block';
+                                renderLeaderboard();
+                                cleanupOldScores();
+                            })
+                            .catch((error) => {
+                                console.error("Error signing in with custom token:", error);
+                                // Fallback to anonymous if custom token fails
+                                signInAnonymously(auth)
+                                    .then((userCredential) => {
+                                        userId = userCredential.user.uid;
+                                        userEmail = null; // Anonymous users don't have an email
+                                        console.log("Signed in anonymously:", userId);
+                                        userAuthStatus.textContent = 'Signed in as: Guest User (Anonymous)';
+                                        modalGoogleSignInBtn.style.display = 'none'; // Hide sign-in button after anonymous login
+                                        modalSignOutBtn.style.display = 'inline-block';
+                                        adminSettingsAccess.style.display = 'none';
+                                        renderLeaderboard();
+                                        cleanupOldScores();
+                                    });
+                            });
+                    } else {
+                        // If no initial token, just sign in anonymously directly
+                        signInAnonymously(auth)
+                            .then((userCredential) => {
+                                userId = userCredential.user.uid;
+                                userEmail = null;
+                                console.log("Signed in anonymously:", userId);
+                                userAuthStatus.textContent = 'Signed in as: Guest User (Anonymous)';
+                                modalGoogleSignInBtn.style.display = 'none'; // Hide sign-in button after anonymous login
+                                modalSignOutBtn.style.display = 'inline-block';
+                                adminSettingsAccess.style.display = 'none';
+                                renderLeaderboard();
+                                cleanupOldScores();
+                            })
+                            .catch((error) => {
+                                console.error("Error signing in anonymously:", error);
+                                displayMessageBox('Authentication Error', 'Could not set up user authentication. Leaderboard features may be limited.', 'error');
+                            });
+                    }
+                }
+            });
+        } else {
+            console.warn("Firebase config not found. Leaderboard features will not be available.");
+            emptyLeaderboardMessage.style.display = 'block';
+            emptyLeaderboardMessage.textContent = "Leaderboard is unavailable. Firebase configuration is missing.";
+            submitScoreBtn.disabled = true;
+            settingsBtn.style.display = 'none'; // Ensure settings button is hidden
+            // Hide all auth-related buttons and messages in the modal if Firebase is not configured
+            userAuthStatus.textContent = 'Firebase Not Configured';
+            modalGoogleSignInBtn.style.display = 'none';
+            modalSignOutBtn.style.display = 'none';
+            adminSettingsAccess.style.display = 'none';
+        }
+
+
+        // Define a larger pool of quiz questions (50 questions)
+        const quizQuestionsPool = [
+            { question: "Which of the following is a primary greenhouse gas responsible for climate change?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"], correctAnswer: "Carbon Dioxide", feedback: "Carbon Dioxide is the most significant human-emitted greenhouse gas." },
+            { question: "What is 'Galamsey' primarily impacting in Ghana's environment?", options: ["Air quality in cities", "Coastal erosion", "Water bodies and forests", "Desertification"], correctAnswer: "Water bodies and forests", feedback: "Illegal mining (Galamsey) causes severe pollution of water sources and extensive deforestation." },
+            { question: "Which renewable energy source is most abundant in Ghana?", options: ["Wind power", "Solar power", "Geothermal energy", "Hydroelectric power"], correctAnswer: "Hydroelectric power", feedback: "Ghana heavily relies on hydroelectric power, though solar and wind potential are growing." },
+            { question: "What is the main goal of 'climate adaptation'?", options: ["Reducing greenhouse gas emissions", "Adjusting to actual or expected climate change effects", "Developing new green technologies", "Promoting international climate agreements"], correctAnswer: "Adjusting to actual or expected climate change effects", feedback: "Climate adaptation focuses on building resilience and coping with the impacts of climate change." },
+            { question: "Deforestation contributes to climate change by:", options: ["Increasing oxygen levels", "Absorbing more carbon dioxide", "Releasing stored carbon dioxide", "Cooling the atmosphere"], correctAnswer: "Releasing stored carbon dioxide", feedback: "Trees absorb carbon dioxide, so cutting them down releases this stored carbon back into the atmosphere." },
+            { question: "True or False: The greenhouse effect is entirely man-made.", options: ["True", "False"], correctAnswer: "False", feedback: "The natural greenhouse effect is essential for life on Earth; human activities enhance it." },
+            { question: "Which international agreement aims to limit global warming to well below 2°C?", options: ["Kyoto Protocol", "Montreal Protocol", "Paris Agreement", "Rio Declaration"], correctAnswer: "Paris Agreement", feedback: "The Paris Agreement is a legally binding international treaty on climate change." },
+            { question: "What is the term for the long-term average weather patterns in a region?", options: ["Weather", "Climate", "Atmosphere", "Ecosystem"], correctAnswer: "Climate", feedback: "Climate refers to long-term patterns, while weather is short-term conditions." },
+            { question: "Which sector is the largest contributor to greenhouse gas emissions globally?", options: ["Agriculture", "Industry", "Energy (electricity & heat)", "Transportation"], correctAnswer: "Energy (electricity & heat)", feedback: "Energy production from fossil fuels is the dominant source of emissions." },
+            { question: "True or False: Planting trees helps combat climate change.", options: ["True", "False"], correctAnswer: "True", feedback: "Trees absorb carbon dioxide from the atmosphere, acting as carbon sinks." },
+            { question: "What is the primary cause of sea-level rise?", options: ["Increased rainfall", "Melting glaciers and ice sheets", "Ocean currents", "Volcanic activity"], correctAnswer: "Melting glaciers and ice sheets", feedback: "Thermal expansion of water and melting ice contribute significantly to sea-level rise." },
+            { question: "Which of these is a common impact of climate change on agriculture?", options: ["Increased crop yields", "More predictable weather patterns", "Droughts and floods", "Reduced pest outbreaks"], correctAnswer: "Droughts and floods", feedback: "Extreme weather events disrupt agricultural productivity." },
+            { question: "What does 'carbon footprint' refer to?", options: ["The amount of carbon in your shoes", "The total greenhouse gas emissions caused by an individual, event, organization, or product", "The mark left by a carbon-based life form", "The amount of carbon stored in forests"], correctAnswer: "The total greenhouse gas emissions caused by an individual, event, organization, or product", feedback: "It's a measure of environmental impact from greenhouse gas emissions." },
+            { question: "True or False: Renewable energy sources produce no greenhouse gas emissions.", options: ["True", "False"], correctAnswer: "False", feedback: "While significantly lower than fossil fuels, some renewable energy technologies have emissions associated with manufacturing and installation." },
+            { question: "Which of these is a form of sustainable transportation?", options: ["Driving a large SUV", "Flying frequently", "Cycling or walking", "Using a diesel train"], correctAnswer: "Cycling or walking", feedback: "Sustainable transportation options minimize environmental impact." },
+            { question: "What is the purpose of a carbon tax?", options: ["To encourage carbon emissions", "To punish polluters", "To make fossil fuels cheaper", "To put a price on carbon emissions to discourage them"], correctAnswer: "To put a price on carbon emissions to discourage them", feedback: "A carbon tax aims to internalize the external costs of carbon pollution." },
+            { question: "True or False: All scientists agree that climate change is happening and is human-caused.", options: ["True", "False"], correctAnswer: "True", feedback: "There is an overwhelming scientific consensus on anthropogenic climate change." },
+            { question: "What is the term for the process where gases in Earth's atmosphere trap heat?", options: ["Photosynthesis", "Respiration", "Greenhouse effect", "Evaporation"], correctAnswer: "Greenhouse effect", feedback: "The greenhouse effect is the process by which radiation from a planet's atmosphere warms the planet's surface." },
+            { question: "Which of these is NOT a fossil fuel?", options: ["Coal", "Natural Gas", "Uranium", "Oil"], correctAnswer: "Uranium", feedback: "Uranium is used in nuclear power, not a fossil fuel." },
+            { question: "True or False: Recycling helps reduce greenhouse gas emissions.", options: ["True", "False"], correctAnswer: "True", feedback: "Recycling reduces the need for new raw materials, saving energy and reducing emissions." },
+            { question: "What is the main threat to polar bears due to climate change?", options: ["Increased competition for food", "Loss of habitat (sea ice)", "New predators", "Warmer temperatures causing overheating"], correctAnswer: "Loss of habitat (sea ice)", feedback: "Melting sea ice directly impacts polar bear hunting grounds." },
+            { question: "Which term describes the long-term changes in average weather patterns that have come to define Earth’s local, regional and global climates?", options: ["Global warming", "Climate variability", "Climate change", "El Niño"], correctAnswer: "Climate change", feedback: "Climate change encompasses all long-term shifts in weather patterns." },
+            { question: "What is the role of the Intergovernmental Panel on Climate Change (IPCC)?", options: ["To conduct climate research", "To lobby governments for climate action", "To assess scientific information related to climate change", "To fund renewable energy projects"], correctAnswer: "To assess scientific information related to climate change", feedback: "The IPCC synthesizes and assesses climate science for policymakers." },
+            { question: "True or False: Nuclear power is a renewable energy source.", options: ["True", "False"], correctAnswer: "False", feedback: "Nuclear power uses uranium, a finite resource, so it's not renewable." },
+            { question: "What is the primary benefit of using public transportation for the environment?", options: ["It's faster than driving", "It reduces individual vehicle emissions", "It's more comfortable", "It allows for more cargo"], correctAnswer: "It reduces individual vehicle emissions", feedback: "Public transport reduces the number of cars on the road, lowering emissions." },
+            { question: "Which gas is released when organic matter decomposes without oxygen (e.g., in landfills)?", options: ["Carbon Dioxide", "Methane", "Nitrous Oxide", "Ozone"], correctAnswer: "Methane", feedback: "Methane is a potent greenhouse gas produced by anaerobic decomposition." },
+            { question: "True or False: A vegan diet has a lower carbon footprint than a meat-heavy diet.", options: ["True", "False"], correctAnswer: "True", feedback: "Livestock farming is a significant source of greenhouse gas emissions." },
+            { question: "What does 'net-zero emissions' mean?", options: ["No emissions at all", "Emissions are balanced by removals", "Only natural emissions are allowed", "Emissions are ignored"], correctAnswer: "Emissions are balanced by removals", feedback: "Net-zero means achieving a balance between the amount of greenhouse gas emitted and the amount removed from the atmosphere." },
+            { question: "Which natural disaster is expected to become more frequent and intense due to climate change?", options: ["Earthquakes", "Tsunamis", "Hurricanes/Typhoons", "Volcanic eruptions"], correctAnswer: "Hurricanes/Typhoons", feedback: "Warmer ocean temperatures provide more energy for tropical storms." },
+            { question: "True or False: Solar panels can only generate electricity on sunny days.", options: ["False", "True"], correctAnswer: "False", feedback: "Solar panels can still generate some electricity on cloudy days, though less efficiently." },
+            { question: "What is 'E-waste'?", options: ["Waste from electronic books", "Electronic waste like old phones and computers", "Waste from energy production", "Waste from electrical grids"], correctAnswer: "Electronic waste like old phones and computers", feedback: "E-waste contains hazardous materials and requires proper disposal." },
+            { question: "Which of these actions helps conserve water?", options: ["Taking long showers", "Leaving the tap running", "Fixing leaky faucets", "Watering lawns daily"], correctAnswer: "Fixing leaky faucets", feedback: "Conserving water reduces energy used for pumping, heating, and treating water." },
+            { question: "True or False: The ozone layer hole is the primary cause of global warming.", options: ["False", "True"], correctAnswer: "False", feedback: "The ozone hole is a separate environmental issue related to UV radiation, not directly global warming." },
+            { question: "What is 'biodiversity loss'?", options: ["Increase in species numbers", "Decrease in the variety of life on Earth", "Extinction of a single species", "Creation of new ecosystems"], correctAnswer: "Decrease in the variety of life on Earth", feedback: "Climate change is a major driver of biodiversity loss." },
+            { question: "Which organization works to protect endangered species and their habitats?", options: ["UNICEF", "World Health Organization (WHO)", "World Wildlife Fund (WWF)", "Amnesty International"], correctAnswer: "World Wildlife Fund (WWF)", feedback: "WWF is a leading organization in wildlife conservation." },
+            { question: "True or False: Composting food waste can reduce methane emissions.", options: ["True", "False"], correctAnswer: "True", feedback: "Composting is an aerobic process, producing less methane than anaerobic decomposition in landfills." },
+            { question: "What is 'sustainable development'?", options: ["Rapid economic growth at any cost", "Meeting the needs of the present without compromising the ability of future generations to meet their own needs", "Focusing solely on environmental protection", "Developing new technologies without considering social impact"], correctAnswer: "Meeting the needs of the present without compromising the ability of future generations to meet their own needs", feedback: "Sustainable development balances economic, social, and environmental considerations." },
+            { question: "Which of these is a benefit of using LED lighting over incandescent bulbs?", options: ["They are cheaper to buy", "They produce more heat", "They use less energy and last longer", "They are easier to install"], correctAnswer: "They use less energy and last longer", feedback: "LEDs are highly energy-efficient and durable." },
+            { question: "True or False: All plastic is recyclable.", options: ["False", "True"], correctAnswer: "False", feedback: "Only certain types of plastic are recyclable, and recycling infrastructure varies." },
+            { question: "What is the main purpose of a 'green building'?", options: ["To be painted green", "To be aesthetically pleasing", "To reduce negative environmental impacts and improve occupant health", "To be built quickly"], correctAnswer: "To reduce negative environmental impacts and improve occupant health", feedback: "Green buildings incorporate sustainable design and construction practices." },
+            { question: "Which country is currently the largest emitter of greenhouse gases?", options: ["United States", "India", "China", "Russia"], correctAnswer: "China", feedback: "China is the largest emitter, though per capita emissions vary." },
+            { question: "True or False: Eating local food can reduce your carbon footprint.", options: ["True", "False"], correctAnswer: "True", feedback: "Local food often has a shorter transportation distance, reducing emissions." },
+            { question: "What is 'ocean acidification'?", options: ["Oceans becoming more basic", "Decrease in the pH of the ocean caused by the uptake of carbon dioxide from the atmosphere", "Increase in ocean temperature", "Pollution from plastic waste"], correctAnswer: "Decrease in the pH of the ocean caused by the uptake of carbon dioxide from the atmosphere", feedback: "Excess CO2 dissolves in oceans, forming carbonic acid." },
+            { question: "Which of these is an example of 'circular economy' principle?", options: ["Produce, use, dispose", "Take, make, waste", "Reduce, reuse, recycle", "Buy new products frequently"], correctAnswer: "Reduce, reuse, recycle", feedback: "The circular economy aims to minimize waste and maximize resource use." },
+            { question: "True or False: Hydroelectric power plants have no environmental impact.", options: ["False", "True"], correctAnswer: "False", feedback: "Dams can alter ecosystems, affect fish migration, and change water flow." },
+            { question: "What is the 'Great Pacific Garbage Patch'?", options: ["A large island in the Pacific", "A collection of marine debris in the North Pacific Ocean", "A new continent", "A fishing zone"], correctAnswer: "A collection of marine debris in the North Pacific Ocean", feedback: "It's a massive area of plastic and other debris accumulated by ocean currents." },
+            { question: "Which international day is celebrated annually to raise awareness about environmental protection?", options: ["Earth Day", "Valentine's Day", "New Year's Day", "Independence Day"], correctAnswer: "Earth Day", feedback: "Earth Day is celebrated on April 22nd." },
+            { question: "True or False: Using a reusable water bottle helps reduce plastic pollution.", options: ["True", "False"], correctAnswer: "True", feedback: "Reusable bottles reduce the demand for single-use plastics." },
+            { question: "What is the process of converting waste materials into new materials and objects?", options: ["Incineration", "Landfilling", "Recycling", "Composting"], correctAnswer: "Recycling", "feedback": "Recycling is key to reducing waste and conserving resources." },
+            { question: "Which of these is a way to reduce energy consumption at home?", options: ["Leaving lights on", "Unplugging electronics when not in use", "Keeping windows open with AC on", "Using inefficient appliances"], correctAnswer: "Unplugging electronics when not in use", feedback: "Phantom load from idle electronics consumes significant energy." }
+        ];
+
+
+        // 1. Hamburger Menu Toggle (for mobile navigation)
+        mobileMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        // Close sidebar when a link is clicked
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // 2. Back to Top button functionality
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Quiz Functions
+        function getRandomQuestions(pool, numQuestions) {
+            const shuffled = [...pool].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, numQuestions);
+        }
+
+        function startQuiz() {
+            userName = displayNameInput.value.trim();
+            if (userName === '') {
+                displayMessageBox('Name Required', 'Please enter a display name to start the quiz!', 'error');
+                return;
+            }
+
+            selectedQuizQuestions = getRandomQuestions(quizQuestionsPool, 7); // Select 7 random questions
+            currentQuestionIndex = 0;
+            score = 0;
+
+            quizStartScreen.style.display = 'none';
+            quizQuestionDisplay.style.display = 'block';
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            // Ensure the current question display is ready for animation
+            if (quizQuestionDisplay.classList.contains('slide-out-left')) {
+                quizQuestionDisplay.classList.remove('slide-out-left');
+                quizQuestionDisplay.classList.add('slide-in-right');
+                // Force reflow for the slide-in animation to work from the right
+                void quizQuestionDisplay.offsetWidth;
+            }
+            quizQuestionDisplay.classList.add('active-question');
+
+            // Hide AI explanation when new question is displayed
+            aiExplanationContainer.classList.remove('active');
+            aiExplanationText.textContent = '';
+            aiExplainBtn.style.display = 'none';
+
+            const questionData = selectedQuizQuestions[currentQuestionIndex];
+            questionText.textContent = questionData.question;
+            answerOptions.innerHTML = ''; // Clear previous options
+            selectedOption = null; // Reset selected option for new question
+
+            questionData.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('quiz-option');
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => selectOption(optionElement, option));
+                answerOptions.appendChild(optionElement);
+            });
+
+            // Hide navigation buttons as advancement is now automatic
+            nextQuestionBtn.style.display = 'none';
+            submitQuizBtn.style.display = 'none';
+        }
+
+        function selectOption(element, selectedAnswer) {
+            // If an option was already selected, remove its feedback
+            if (selectedOption) {
+                selectedOption.classList.remove('selected', 'correct', 'incorrect');
+                const prevIcon = selectedOption.querySelector('.feedback-icon');
+                if (prevIcon) prevIcon.remove();
+            }
+
+            selectedOption = element;
+            selectedOption.classList.add('selected');
+
+            // Check answer and provide immediate feedback
+            const questionData = selectedQuizQuestions[currentQuestionIndex];
+            const isCorrect = (selectedAnswer === questionData.correctAnswer);
+
+            const feedbackIcon = document.createElement('i');
+            feedbackIcon.classList.add('feedback-icon', 'fas');
+
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                feedbackIcon.classList.add('fa-check-circle');
+                // Only increment score if correct and not already counted (important for re-selection)
+                if (!selectedOption.dataset.counted) {
+                    score++;
+                    selectedOption.dataset.counted = true; // Mark as counted
+                }
+            } else {
+                selectedOption.classList.add('incorrect');
+                feedbackIcon.classList.add('fa-times-circle');
+                // If previously correct and now incorrect, decrement score
+                if (selectedOption.dataset.counted) {
+                    score--;
+                    delete selectedOption.dataset.counted; // Remove counted mark
+                }
+                // Highlight correct answer if incorrect
+                Array.from(answerOptions.children).forEach(opt => {
+                    if (opt.textContent === questionData.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            selectedOption.appendChild(feedbackIcon);
+
+            // Disable all options after selection
+            Array.from(answerOptions.children).forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            // Show AI explanation button
+            aiExplainBtn.style.display = 'block';
+
+            // Automatically advance to the next question or show results after a delay
+            setTimeout(() => {
+                // If AI explanation container is active, wait for it to be clicked
+                // Otherwise, proceed
+                if (!aiExplanationContainer.classList.contains('active')) { // Only auto-advance if explanation isn't showing
+                    if (currentQuestionIndex < selectedQuizQuestions.length - 1) {
+                        nextQuestion();
+                    } else {
+                        showResults();
+                    }
+                }
+            }, 3000); // Give user time to see feedback and potentially click AI explain
+        }
+
+        function nextQuestion() {
+            // Start slide-out animation
+            quizQuestionDisplay.classList.remove('active-question');
+            quizQuestionDisplay.classList.add('slide-out-left');
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                displayQuestion();
+            }, 500); // Wait for slide-out animation to complete
+        }
+
+        function showResults() {
+            quizQuestionDisplay.style.display = 'none';
+            quizResultsScreen.style.display = 'block';
+            finalScore.textContent = `${score}/${selectedQuizQuestions.length}`;
+
+            let feedbackText = '';
+            let scoreColor = '';
+            if (score === selectedQuizQuestions.length) {
+                feedbackText = "Amazing! You're a true climate champion!";
+                scoreColor = 'var(--primary-green)';
+                resultsFeedbackIcon.classList.remove('fa-trophy', 'fa-leaf'); // Remove previous icon
+                resultsFeedbackIcon.classList.add('fa-star'); // Gold star for perfect score
+                resultsFeedbackIcon.style.color = 'var(--accent-orange)';
+            } else if (score >= selectedQuizQuestions.length / 2) {
+                feedbackText = "Great effort! You have a good understanding of climate change.";
+                scoreColor = 'var(--secondary-blue)';
+                resultsFeedbackIcon.classList.remove('fa-star', 'fa-leaf'); // Remove previous icon
+                resultsFeedbackIcon.classList.add('fa-award'); // Award for good score
+                resultsFeedbackIcon.style.color = 'var(--secondary-blue)';
+            } else {
+                feedbackText = "Keep learning! There's more to discover about climate change.";
+                scoreColor = 'var(--accent-orange)';
+                resultsFeedbackIcon.classList.remove('fa-star', 'fa-award'); // Remove previous icon
+                resultsFeedbackIcon.classList.add('fa-leaf'); // Leaf for encouragement
+                resultsFeedbackIcon.style.color = 'var(--primary-green)';
+            }
+            finalScore.style.color = scoreColor;
+            quizFeedback.textContent = feedbackText;
+
+            // Show submit score button, hide if already submitted
+            submitScoreBtn.style.display = 'block';
+            submitScoreBtn.disabled = false;
+            submitScoreBtn.textContent = 'Submit Score to Leaderboard'; // Reset text
+            leaderboardEncouragement.textContent = "Challenge yourself and climb the leaderboard!";
+
+            // Hide AI explanation area when showing results
+            aiExplanationContainer.classList.remove('active');
+            aiExplanationText.textContent = '';
+            aiExplainBtn.style.display = 'none';
+        }
+
+        async function submitScore() {
+            if (!userId || !db) {
+                displayMessageBox('Authentication Error', 'User authentication not ready. Please try again in a moment.', 'error');
+                return;
+            }
+            try {
+                const leaderboardCollection = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+                await addDoc(leaderboardCollection, {
+                    name: userName,
+                    score: score,
+                    timestamp: serverTimestamp() // Use serverTimestamp for accuracy
+                });
+                displayMessageBox('Score Submitted!', 'Your score has been successfully added to the leaderboard!', 'success');
+                submitScoreBtn.disabled = true;
+                submitScoreBtn.textContent = 'Score Submitted!';
+                leaderboardEncouragement.textContent = "Your score has been submitted! See where you rank below.";
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                displayMessageBox('Submission Failed', 'There was an error submitting your score. Please try again.', 'error');
+            }
+        }
+
+        function retakeQuiz() {
+            quizResultsScreen.style.display = 'none';
+            quizStartScreen.style.display = 'block'; // Go back to start screen
+            displayNameInput.value = ''; // Clear name input
+            submitScoreBtn.textContent = 'Submit Score to Leaderboard'; // Reset button text
+            // Reset quiz display for next start
+            quizQuestionDisplay.classList.remove('active-question', 'slide-in-right', 'slide-out-left');
+            quizQuestionDisplay.style.display = 'none';
+        }
+
+        function renderLeaderboard() {
+            if (!db) {
+                console.warn("Leaderboard: Firestore DB not initialized.");
+                return; // Ensure db is initialized
+            }
+
+            const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+
+            // Calculate 2 weeks ago timestamp
+            const twoWeeksAgo = new Date();
+            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+            const twoWeeksAgoTimestamp = Timestamp.fromDate(twoWeeksAgo);
+
+            // Query to get all scores within the last 2 weeks
+            // Sorting and limiting will be done in JavaScript to avoid composite index requirement
+            const q = query(
+                leaderboardCollectionRef,
+                where("timestamp", ">=", twoWeeksAgoTimestamp)
+            );
+
+            onSnapshot(q, (snapshot) => {
+                let fetchedLeaderboardData = [];
+                snapshot.forEach((doc) => {
+                    fetchedLeaderboardData.push({ id: doc.id, ...doc.data() }); // Include doc.id for deletion
+                });
+
+                // Sort the data in JavaScript
+                fetchedLeaderboardData.sort((a, b) => {
+                    if (b.score !== a.score) {
+                        return b.score - a.score; // Primary sort by score (descending)
+                    }
+                    // Secondary sort by timestamp for ties (descending)
+                    // Ensure timestamp is a valid object before accessing toMillis()
+                    const aTimestamp = a.timestamp && typeof a.timestamp.toMillis === 'function' ? a.timestamp.toMillis() : 0;
+                    const bTimestamp = b.timestamp && typeof b.timestamp.toMillis === 'function' ? b.timestamp.toMillis() : 0;
+                    return bTimestamp - aTimestamp;
+                });
+
+                // Limit to top 7
+                const top7Scores = fetchedLeaderboardData.slice(0, 7);
+
+                // Clear existing rows
+                leaderboardBody.innerHTML = '';
+
+                if (top7Scores.length === 0) {
+                    emptyLeaderboardMessage.style.display = 'block';
+                } else {
+                    emptyLeaderboardMessage.style.display = 'none';
+                    top7Scores.forEach((entry, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${entry.name}</td>
+                            <td>${entry.score}/${selectedQuizQuestions.length || 7}</td>
+                            <td>${entry.id.substring(0, 5)}...</td>
+                        `;
+                        leaderboardBody.appendChild(row);
+                    });
+                }
+            }, (error) => {
+                console.error("Error fetching leaderboard: ", error);
+                // More specific error message for permission issues
+                if (error.code === 'permission-denied') {
+                    emptyLeaderboardMessage.textContent = "Leaderboard: Access denied. Please ensure your Firebase Firestore Security Rules allow read access for authenticated users to 'artifacts/{appId}/public/data/leaderboard'.";
+                } else {
+                    emptyLeaderboardMessage.textContent = "Error loading leaderboard. Please try again later.";
+                }
+                emptyLeaderboardMessage.style.display = 'block';
+            });
+        }
+
+        // Function to clean up old scores (older than 2 weeks)
+        async function cleanupOldScores() {
+            if (!db || userEmail !== ADMIN_EMAIL) { // Added admin check
+                console.log("Not authorized to clean up old scores or DB not ready.");
+                return;
+            }
+
+            const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+            const twoWeeksAgo = new Date();
+            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+            const twoWeeksAgoTimestamp = Timestamp.fromDate(twoWeeksAgo);
+
+            // Query to select scores older than 2 weeks
+            const q = query(
+                leaderboardCollectionRef,
+                where("timestamp", "<", twoWeeksAgoTimestamp)
+            );
+
+            try {
+                const snapshot = await getDocs(q);
+                if (snapshot.empty) {
+                    console.log("No old scores to clean up.");
+                    return;
+                }
+                const batch = writeBatch(db); // Use a batch for multiple deletes
+                snapshot.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
+                console.log(`Cleaned up ${snapshot.size} old scores.`);
+            } catch (error) {
+                console.error("Error cleaning up old scores: ", error);
+                if (error.code === 'permission-denied') {
+                    console.error("Cleanup: Permission denied. Ensure admin user has write access to 'artifacts/{appId}/public/data/leaderboard'.");
+                }
+                // No need to displayMessageBox here, as it's a background task.
+            }
+        }
+
+
+        // --- Custom Message Box (Modal) Functionality ---
+        const messageBoxOverlay = document.getElementById('customMessageBoxOverlay');
+        const messageBoxCard = document.getElementById('customMessageBoxCard');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxContent = document.getElementById('messageBoxContent'); // Now a div
+        const messageBoxButton = document.getElementById('messageBoxButton');
+        const closeMessageBox = document.getElementById('closeMessageBox');
+
+        function displayMessageBox(title, content, type = 'info', showButton = true, callback = null) {
+            messageBoxTitle.textContent = title;
+            if (typeof content === 'string') {
+                messageBoxContent.textContent = content;
+            } else {
+                messageBoxContent.innerHTML = '';
+                messageBoxContent.appendChild(content);
+            }
+
+            // Reset button classes and styles
+            messageBoxButton.className = 'quiz-button'; // Always start with quiz-button class
+            messageBoxButton.style.backgroundImage = ''; // Clear previous gradient
+            messageBoxButton.style.backgroundColor = ''; // Clear previous solid color
+            messageBoxButton.style.marginLeft = ''; // Clear previous margin
+
+            if (type === 'error') {
+                messageBoxTitle.style.color = 'var(--uncommitted-red)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, #D32F2F 0%, #B71C1C 100%)';
+            } else if (type === 'success') {
+                messageBoxTitle.style.color = 'var(--primary-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--primary-green) 0%, var(--dark-green) 100%)';
+            } else if (type === 'share') {
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            } else if (type === 'confirm') { // Style for confirmation
+                messageBoxTitle.style.color = 'var(--accent-orange)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%)';
+                
+                // Create a "Cancel" button for confirmation dialogs
+                const existingCancelButton = messageBoxContent.querySelector('.cancel-button');
+                if (existingCancelButton) existingCancelButton.remove(); // Remove if already exists
+
+                const cancelButton = document.createElement('a');
+                cancelButton.href = "#";
+                cancelButton.classList.add('quiz-button', 'cancel-button'); // Apply quiz-button class
+                cancelButton.textContent = "Cancel";
+                cancelButton.style.marginLeft = '15px';
+                cancelButton.style.backgroundImage = 'none'; // No gradient for cancel
+                cancelButton.style.backgroundColor = 'var(--neutral-gray)'; // Solid gray background
+                cancelButton.style.color = 'var(--white)';
+                cancelButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(false); // Indicate cancellation
+                }, { once: true }); // Ensure it only fires once
+                messageBoxContent.appendChild(cancelButton); // Add cancel button
+
+                // Modify the OK button to pass true for confirmation
+                messageBoxButton.replaceWith(messageBoxButton.cloneNode(true)); // Clone to remove old listeners
+                const newMessageBoxButton = document.getElementById('messageBoxButton');
+                newMessageBoxButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(true); // Indicate confirmation
+                }, { once: true }); // Ensure it only fires once
+
+            }
+            else { // Default info
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            }
+
+            if (showButton) {
+                messageBoxButton.style.display = 'inline-block';
+                if (type !== 'confirm') { // Only re-add listener if not a confirm type (handled above)
+                    // Remove previous event listener to avoid multiple calls
+                    messageBoxButton.replaceWith(messageBoxButton.cloneNode(true));
+                    document.getElementById('messageBoxButton').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        messageBoxOverlay.classList.remove('active');
+                        if (callback) callback();
+                    }, { once: true });
+                }
+            } else {
+                messageBoxButton.style.display = 'none';
+            }
+
+            messageBoxOverlay.classList.add('active');
+        }
+
+
+        closeMessageBox.addEventListener('click', () => {
+            messageBoxOverlay.classList.remove('active');
+        });
+
+        messageBoxOverlay.addEventListener('click', (e) => {
+            if (e.target === messageBoxOverlay) {
+                messageBoxOverlay.classList.remove('active');
+            }
+        });
+
+        // --- Footer Newsletter Subscribe Button Feedback ---
+        const footerSubscribeButton = document.querySelector('#footer-newsletter-form button[type="submit"]');
+
+        if (footerSubscribeButton) {
+            footerSubscribeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                displayMessageBox('Subscription Successful!', 'Thank you for subscribing to our newsletter! You\'ll receive updates directly in your inbox.', 'success');
+            });
+        }
+
+        // --- Social Media Share Functionality (Integrated) ---
+        const socialLinks = document.querySelectorAll('.footer-section .social-links a');
+
+        socialLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                const isShareLink = link.href.includes('facebook.com/sharer') ||
+                                    link.href.includes('twitter.com/intent') ||
+                                    link.href.includes('api.whatsapp.com') ||
+                                    link.href.includes('mailto:');
+
+                if (isShareLink) {
+                    event.preventDefault();
+                    window.open(link.href, '_blank', 'width=600,height=400');
+                }
+            });
+        });
+
+        // Event Listeners for Quiz Buttons
+        startQuizBtn.addEventListener('click', startQuiz);
+        submitScoreBtn.addEventListener('click', submitScore);
+        retakeQuizBtn.addEventListener('click', retakeQuiz);
+
+        // --- Leaderboard Settings Functionality ---
+        settingsBtn.addEventListener('click', () => {
+            authModal.classList.add('active'); // Open the new authentication modal
+        });
+
+        closeAuthModalBtn.addEventListener('click', () => {
+            authModal.classList.remove('active');
+        });
+
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.classList.remove('active');
+            }
+        });
+
+        goToAdminSettingsBtn.addEventListener('click', () => {
+            if (userEmail === ADMIN_EMAIL) {
+                authModal.classList.remove('active'); // Close auth modal
+                openLeaderboardSettings(); // Open admin settings modal
+            } else {
+                displayMessageBox('Access Denied', 'You do not have permission to access these settings.', 'error');
+            }
+        });
+
+        closeLeaderboardSettingsBtn.addEventListener('click', () => {
+            leaderboardSettingsModal.classList.remove('active');
+        });
+
+        leaderboardSettingsModal.addEventListener('click', (e) => {
+            if (e.target === leaderboardSettingsModal) {
+                leaderboardSettingsModal.classList.remove('active');
+            }
+        });
+
+        async function openLeaderboardSettings() {
+            if (!db) {
+                displayMessageBox('Error', 'Database not initialized.', 'error');
+                return;
+            }
+            if (userEmail !== ADMIN_EMAIL) {
+                displayMessageBox('Access Denied', 'You do not have permission to access these settings.', 'error');
+                return;
+            }
+
+            leaderboardSettingsModal.classList.add('active');
+            settingsLeaderboardBody.innerHTML = ''; // Clear previous entries
+            settingsEmptyMessage.style.display = 'none';
+
+            const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+            // Removed orderBy from query to avoid potential index issues.
+            // Data will be fetched and then sorted in JavaScript.
+            const q = query(leaderboardCollectionRef); 
+
+            try {
+                const snapshot = await getDocs(q);
+                let allScores = [];
+                snapshot.forEach((doc) => {
+                    allScores.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Sort the data in JavaScript by timestamp (descending)
+                allScores.sort((a, b) => {
+                    const aTimestamp = a.timestamp && typeof a.timestamp.toMillis === 'function' ? a.timestamp.toMillis() : 0;
+                    const bTimestamp = b.timestamp && typeof b.timestamp.toMillis === 'function' ? b.timestamp.toMillis() : 0;
+                    return bTimestamp - aTimestamp;
+                });
+
+                if (allScores.length === 0) {
+                    settingsEmptyMessage.style.display = 'block';
+                } else {
+                    allScores.forEach((entry) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.name}</td>
+                            <td>${entry.score}/${selectedQuizQuestions.length || 7}</td>
+                            <td><button class="delete-score-btn" data-id="${entry.id}">Delete</button></td>
+                        `;
+                        settingsLeaderboardBody.appendChild(row);
+                    });
+
+                    // Add event listeners to newly created delete buttons
+                    settingsLeaderboardBody.querySelectorAll('.delete-score-btn').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const docIdToDelete = event.target.dataset.id;
+                            displayMessageBox('Confirm Deletion', 'Are you sure you want to delete this score?', 'confirm', true, (confirmed) => {
+                                if (confirmed) {
+                                    deleteIndividualScore(docIdToDelete);
+                                }
+                            });
+                        });
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching scores for settings: ", error);
+                if (error.code === 'permission-denied') {
+                    displayMessageBox('Error', "Access denied to settings data. Please ensure your Firebase Firestore Security Rules allow read access for admin users to 'artifacts/{appId}/public/data/leaderboard'.", 'error');
+                } else {
+                    displayMessageBox('Error', 'Could not load scores for settings. Please try again.', 'error');
+                }
+            }
+        }
+
+        resetAllScoresBtn.addEventListener('click', () => {
+            displayMessageBox('Confirm Reset', 'Are you sure you want to delete ALL scores from the leaderboard? This action cannot be undone.', 'confirm', true, (confirmed) => {
+                if (confirmed) {
+                    resetAllScores();
+                }
+            });
+        });
+
+        async function resetAllScores() {
+            if (!db || userEmail !== ADMIN_EMAIL) {
+                displayMessageBox('Access Denied', 'You do not have permission to perform this action.', 'error');
+                return;
+            }
+
+            const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+            const q = query(leaderboardCollectionRef); // Get all documents
+
+            try {
+                const snapshot = await getDocs(q);
+                const batch = writeBatch(db);
+                snapshot.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
+                displayMessageBox('Leaderboard Reset', 'All scores have been successfully deleted.', 'success');
+                leaderboardSettingsModal.classList.remove('active'); // Close modal after reset
+            } catch (error) {
+                console.error("Error resetting all scores: ", error);
+                if (error.code === 'permission-denied') {
+                    displayMessageBox('Error', "Reset failed: Permission denied. Ensure admin user has write access to 'artifacts/{appId}/public/data/leaderboard'.", 'error');
+                } else {
+                    displayMessageBox('Error', 'Failed to reset leaderboard. Please try again.', 'error');
+                }
+            }
+        }
+
+        async function deleteIndividualScore(docId) {
+            if (!db || userEmail !== ADMIN_EMAIL) {
+                displayMessageBox('Access Denied', 'You do not have permission to perform this action.', 'error');
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, `artifacts/${appId}/public/data/leaderboard`, docId));
+                displayMessageBox('Score Deleted', 'The selected score has been successfully deleted.', 'success');
+                openLeaderboardSettings(); // Re-open settings to refresh the list
+            } catch (error) {
+                console.error("Error deleting individual score: ", error);
+                if (error.code === 'permission-denied') {
+                    displayMessageBox('Error', "Deletion failed: Permission denied. Ensure admin user has write access to 'artifacts/{appId}/public/data/leaderboard'.", 'error');
+                } else {
+                    displayMessageBox('Error', 'Failed to delete score. Please try again.', 'error');
+                }
+            }
+        }
+
+        // --- Gemini API Integration for AI Explanation ---
+        aiExplainBtn.addEventListener('click', async () => {
+            aiExplainBtn.disabled = true;
+            aiExplainBtn.textContent = 'Generating Explanation...';
+            aiExplanationText.textContent = ''; // Clear previous explanation
+            aiExplanationContainer.classList.add('active'); // Ensure container is visible and animated
+
+            const questionData = selectedQuizQuestions[currentQuestionIndex];
+            const incorrectOptions = questionData.options.filter(opt => opt !== questionData.correctAnswer);
+
+            let prompt = `For the quiz question: '${questionData.question}', the correct answer is '${questionData.correctAnswer}'. Explain this concept in 2-3 sentences.`;
+
+            if (incorrectOptions.length > 0) {
+                prompt += ` Briefly explain why the other options (${incorrectOptions.join(', ')}) are not correct.`;
+            }
+            prompt += ` Keep the language simple and informative.`;
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+
+                // IMPORTANT: In a real application, you would NEVER expose your API key like this.
+                // You would use a backend server to make this API call securely.
+                // For this demonstration within a browser environment, it's included here.
+                const apiKey = ""; // This will be automatically populated by the environment.
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    aiExplanationText.textContent = text;
+                } else {
+                    aiExplanationText.textContent = 'Could not generate explanation. Gemini API response format unexpected.';
+                    console.error('Gemini API response structure unexpected:', result);
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                aiExplanationText.textContent = 'Failed to fetch explanation. Please check your internet connection or console for details.';
+            } finally {
+                aiExplainBtn.disabled = false;
+                aiExplainBtn.textContent = '✨ Explain More';
+            }
+        });
+
+
+        // Initial render of the leaderboard will be triggered by Firebase auth state change
+        // cleanupOldScores() will also be triggered after auth.
+    </script>
+
+</body>
+</html>

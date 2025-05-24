@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn About Climate Change - GreenGhana Alliance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables for Color Palette (consistent with homepage) */
+        :root {
+            --primary-green: #2E7D32; /* Deep Forest Green */
+            --secondary-blue: #2196F3; /* Vibrant Sky Blue */
+            --accent-orange: #FF9800; /* Energetic Sunrise Orange */
+            --light-green: #81C784;
+            --dark-green: #1B5E20;
+            --light-blue: #BBDEFB;
+            --dark-blue: #1565C0;
+            --neutral-gray: #424242;
+            --light-gray: #EEEEEE;
+            --white: #FFFFFF;
+            --dark-orange-hover: #E68A00; /* Slightly darker orange for hover */
+            --correct-answer: #4CAF50; /* Green for correct */
+            --incorrect-answer: #F44336; /* Red for incorrect */
+            --uncommitted-red: #D32F2F; /* Red for uncommitted progress */
+            --premium-bg-light: rgba(255, 255, 255, 0.8); /* Lighter translucent white */
+            --premium-border: rgba(255, 255, 255, 0.6); /* Slightly more opaque white border */
+            --premium-shadow-light: rgba(0, 0, 0, 0.05);
+            --premium-shadow-medium: rgba(0, 0, 0, 0.15);
+            --premium-shadow-strong: rgba(0, 0, 0, 0.25);
+        }
+
+           *{
+            margin:0px ;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+      
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--neutral-gray);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            scroll-behavior: smooth; 
+            overflow-x: hidden; /* Prevent horizontal scroll due to sidebar */
+        }
+
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-green);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark-green);
+            display: flex; /* Allow icon and text to be on same line */
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Space between icon and text */
+        }
+
+        /* Animated Icons for Section Titles */
+        .section-title-icon {
+            font-size: 1.2em; /* Slightly larger than text */
+            color: var(--accent-orange);
+            animation: pulse 2s infinite ease-in-out; /* Subtle pulsing animation */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+      
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1em 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky; 
+            top: 0;
+            z-index: 1000; 
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            color: var(--white);
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        
+        .menu-toggle {
+            display: none; 
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 4px 0;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+
+        
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative; 
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-left: 5px; 
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        
+        .dropdown-content {
+            display: none; 
+            position: absolute;
+            background-color: var(--dark-green);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            left: 0;
+            top: 100%;
+            padding: 10px 0;
+        }
+
+        .dropdown-content a {
+            color: var(--white);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: 400;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary-green);
+            color: var(--accent-orange);
+        }
+
+       
+        .nav-links li.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        
+        .nav-links li.dropdown.open .dropdown-content {
+            display: block;
+        }
+
+       
+        .nav-links li.dropdown.open > a i {
+            transform: rotate(180deg);
+        }
+
+       
+        /* main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }  */
+
+       
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.61),rgba(0, 0, 0, 0.623),rgba(0, 0, 0, 0.623)), url('/pics/clmvhngH1.jpg');  
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            width: 100%;
+            height: 85vh;
+            
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            color: var(--accent-orange); 
+            margin-bottom: 15px;
+            font-weight: 800; /* Even bolder */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+
+        /* Sub-headline for the page */
+        .page-sub-headline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2em; /* Larger font size */
+            text-align: center;
+            color: var(--secondary-blue); /* Contrasting color */
+            margin-bottom: 60px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .ctabtn{
+            color: var(--white);
+             font-family: 'Montserrat', sans-serif;
+             text-decoration: none;
+        }
+
+        
+        .content-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .content-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .content-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .content-section .section-header h2 {
+            font-size: 2.5em;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .content-section .section-header h3 {
+            font-size: 1.6em;
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+
+        .content-section .text-block {
+            font-size: 1.1em;
+            color: var(--neutral-gray);
+            margin-bottom: 30px;
+            text-align: justify;
+            max-width: 800px; 
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .content-section .visual-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+       
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000; /* Black background for video placeholder */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .content-section .visual-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .content-section .cta-button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%); /* Orange gradient */
+            color: var(--white);
+            border: none;
+            padding: 15px 35px; /* More padding */
+            font-size: 1.15em; /* Larger font */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 10px; /* More rounded */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Deeper shadow */
+            display: block; 
+            margin: 0 auto; 
+        }
+
+        .content-section .cta-button:hover {
+            background-position: 100% 0; /* Shift gradient */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+       
+        .quiz-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .quiz-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .quiz-question-display {
+            font-size: 1.5em;
+            color: var(--dark-green);
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            margin-bottom: 25px;
+        }
+
+        .quiz-options label {
+            display: block;
+            background-color: var(--light-gray);
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: var(--neutral-gray);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            border: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-options label:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2); /* Make radio buttons slightly larger */
+            accent-color: var(--primary-green); /* Green accent color */
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .quiz-navigation button {
+            background-image: linear-gradient(to right, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .quiz-navigation button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        .quiz-navigation button:disabled {
+            background-image: none;
+            background-color: var(--light-gray);
+            color: var(--neutral-gray);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .quiz-feedback {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .quiz-feedback.correct {
+            color: var(--correct-answer);
+        }
+
+        .quiz-feedback.incorrect {
+            color: var(--incorrect-answer);
+        }
+
+        .quiz-progress {
+            text-align: center;
+            font-size: 0.95em;
+            color: var(--neutral-gray);
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Leaderboard Styling */
+        .leaderboard-section {
+            margin-top: 60px;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .leaderboard-section h3 {
+            font-size: 2em;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+        }
+
+        .leaderboard-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 1.1em;
+            color: var(--neutral-gray);
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item .rank {
+            font-weight: 700;
+            color: var(--accent-orange);
+            width: 40px;
+            text-align: left;
+        }
+
+        .leaderboard-item .name {
+            flex-grow: 1;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .leaderboard-item .score {
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+       
+        .glossary-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glossary-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .glossary-section .glossary-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; /* More gap */
+        }
+
+        .glossary-section .glossary-item {
+            background-color: var(--light-gray); /* Keep internal card background light */
+            padding: 25px; /* More padding */
+            border-radius: 10px; /* More rounded */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Softer shadow */
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glossary-section .glossary-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .glossary-section .glossary-item h3 {
+            font-size: 1.4em; /* Larger */
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .glossary-section .glossary-item p {
+            font-size: 1em; /* Slightly larger */
+            color: var(--neutral-gray);
+        }
+
+
+        
+        .faq-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .faq-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .faq-section .section-title {
+            margin-bottom: 30px;
+        }
+
+        /* Updated FAQ Item Styling for a more prominent card-like design (Blue Gradient) */
+        .faq-section .faq-item {
+            background-image: linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%); /* Blue gradient background */
+            color: var(--white); /* Default text color for the item */
+            padding: 25px;
+            border-radius: 12px; /* Slightly more rounded */
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* More pronounced shadow */
+            text-align: left;
+            transition: all 0.3s ease-in-out;
+            border: none; /* Remove border if using strong background */
+        }
+
+        .faq-section .faq-item:hover {
+            background-position: 100% 0; /* Shift gradient on hover */
+            transform: translateY(-5px); /* More noticeable lift */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Deeper shadow on hover */
+        }
+
+        .faq-section .faq-item h3 {
+            font-size: 1.3em;
+            color: var(--white); /* Question text in white */
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-section .faq-item h3 i {
+            color: var(--accent-orange); /* Chevron icon color */
+            transition: transform 0.3s ease;
+        }
+
+        .faq-section .faq-item h3.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-section .faq-item p {
+            font-size: 1em;
+            margin-top: 15px; /* More space from question */
+            display: none;
+            color: var(--light-gray); /* Answer text slightly lighter white */
+            line-height: 1.6;
+            padding-top: 15px; /* Add padding to separate from question */
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Subtle separator line */
+        }
+
+        .faq-section .faq-item p.show {
+            display: block;
+        }
+
+        /* Bottom Navigation Links */
+        .bottom-nav-links {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 40px 20px; /* More padding */
+            text-align: center;
+            border-radius: 12px; /* More rounded */
+            margin-top: 60px; /* More space */
+            margin-bottom: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Deeper shadow */
+        }
+
+        .bottom-nav-links h3 {
+            color: var(--white);
+            margin-bottom: 25px; /* More space */
+            font-size: 2em; /* Larger */
+        }
+
+        .bottom-nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px; /* More gap */
+        }
+
+        .bottom-nav-links ul li a {
+            background-image: linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%); /* Blue gradient */
+            color: var(--white);
+            text-decoration: none;
+            padding: 15px 30px; /* More padding */
+            border-radius: 10px; /* More rounded */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Softer shadow */
+            display: block; /* Ensure padding works */
+        }
+
+        .bottom-nav-links ul li a:hover {
+            background-position: 100% 0; /* Shift gradient */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* Deeper shadow */
+        }
+
+
+        /* Footer Styling (consistent with homepage) */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            position: relative; /* For back-to-top button positioning */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--light-green);
+            text-decoration: none;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            justify-content: flex-start;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.8em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        /* Styling for the newsletter description text */
+        .newsletter-description {
+            color: var(--light-green);
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .newsletter-form button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .back-to-top {
+            position: fixed; /* Changed to fixed to always be visible */
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0; /* Hidden by default */
+            pointer-events: none; /* Disable interaction when hidden */
+            z-index: 990; /* Below header */
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Sidebar Styling (Optional - now functional) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px; /* Hidden by default, slightly wider for padding */
+            width: 280px;
+            height: 100%;
+            background-color: var(--dark-green);
+            padding-top: 80px; /* Space for fixed header */
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 999;
+            color: var(--white);
+            overflow-y: auto; /* Enable scrolling for long content */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h3 {
+            color: var(--white);
+            font-size: 1.5em;
+            padding: 0 20px 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--primary-green);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: var(--primary-green);
+            color: var(--accent-orange);
+        }
+
+        .sidebar-section-title {
+            color: var(--light-green);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            padding: 15px 20px 5px;
+            margin-top: 20px;
+            font-weight: 700;
+        }
+
+        /* Overlay for when sidebar is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal / Pop-up Styles (Glass-like Design) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: var(--dark-green);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-card h3 {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .modal-card p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: var(--neutral-gray);
+        }
+
+        .modal-card .cta-button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .modal-card .cta-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal-card .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: var(--dark-green);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .modal-card .close-btn:hover {
+            color: var(--uncommitted-red);
+            transform: rotate(90deg);
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .nav-links li {
+                margin-left: 10px; /* Reduce space for smaller screens */
+            }
+            .content-section .visual-container img {
+                max-width: 90%; /* Adjust image size */
+            }
+            .content-section, .quiz-section, .glossary-section, .faq-section {
+                padding: 50px 30px;
+            }
+            .glossary-section .glossary-list {
+                gap: 20px;
+            }
+            .glossary-section .glossary-item {
+                padding: 20px;
+            }
+            .bottom-nav-links {
+                padding: 30px 20px;
+            }
+            .bottom-nav-links ul li a {
+                padding: 12px 25px;
+            }
+            .quiz-container {
+                padding: 25px;
+            }
+            .quiz-question-display {
+                font-size: 1.3em;
+            }
+            .quiz-options label {
+                font-size: 1em;
+                padding: 12px 15px;
+            }
+            .leaderboard-section {
+                padding: 25px;
+            }
+            .leaderboard-section h3 {
+                font-size: 1.8em;
+            }
+            .leaderboard-item {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex; /* Show hamburger on mobile */
+            }
+
+            .nav-links {
+                display: none; /* Hide nav links by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; /* Below header */
+                left: 0;
+                background-color: var(--primary-green);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show nav links when active */
+            }
+
+            .nav-links li {
+                margin: 0;
+                width: 100%;
+                text-align: center; /* Center links in mobile menu */
+            }
+            .nav-links li a {
+                padding: 15px 0; /* Larger tap area */
+                justify-content: center; /* Center text and icon */
+            }
+
+            .dropdown-content {
+                position: static; /* Stack dropdown items on small screens */
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+                background-color: var(--dark-green); /* Keep background for stacked items */
+                border-radius: 0; /* Remove border radius */
+            }
+            .dropdown-content a {
+                padding-left: 40px; /* Indent dropdown items */
+                text-align: left; /* Align text left for indented items */
+            }
+
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+            .page-sub-headline {
+                font-size: 1.8em;
+            }
+            .content-section .section-header h2 {
+                font-size: 2em;
+            }
+            .content-section .section-header h3 {
+                font-size: 1.4em;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                min-width: auto;
+                width: 100%;
+                text-align: center;
+            }
+            .newsletter-form {
+                align-items: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+            .modal-card {
+                width: 95%;
+                padding: 20px;
+            }
+            .quiz-container {
+                padding: 20px;
+            }
+            .quiz-question-display {
+                font-size: 1.2em;
+            }
+            .quiz-options label {
+                font-size: 0.95em;
+                padding: 10px 12px;
+            }
+            .quiz-navigation button {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+            .leaderboard-section {
+                padding: 20px;
+            }
+            .leaderboard-section h3 {
+                font-size: 1.5em;
+            }
+            .leaderboard-item {
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 60px 15px;
+            }
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            .hero-section .cta-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .content-section {
+                padding: 30px 15px;
+            }
+            .content-section .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .quiz-section .quiz-question {
+                padding: 20px;
+            }
+            .quiz-section .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .glossary-section .glossary-list {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+            }
+            .glossary-section .glossary-item {
+                padding: 20px;
+            }
+            .faq-section {
+                padding: 30px 15px;
+            }
+            .faq-section .faq-item h3 {
+                font-size: 1.2em;
+            }
+            .faq-section .faq-item p {
+                font-size: 0.9em;
+            }
+            .bottom-nav-links h3 {
+                font-size: 1.5em;
+            }
+            .bottom-nav-links ul li a {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>GreenGhana Alliance</h1>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="learn.html" class="active" id="learnDropdownToggle">Learn <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#introduction-to-climate-change">Introduction to Climate Change in Ghana</a>
+                        <a href="#climate-change-effects-sectors">Climate Change Effects on Key Sectors</a>
+                        <a href="#ghanas-response">Ghana's Response to Climate Change</a>
+                        <a href="#quiz-section">Test Your Knowledge (Quiz)</a>
+                        <a href="#glossary-section">Key Terms (Glossary)</a>
+                        <a href="#faq">FAQs</a>
+                    </div>
+                </li>
+                <li><a href="act-now.html">Act Now</a></li>
+                <li><a href="media.html">Media</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>Understanding Climate Change in Ghana</h1>
+        </section>
+
+        <h2 class="page-sub-headline">Explore compelling videos, articles, and podcasts on climate change in Ghana and beyond.</h2>
+
+        <section id="introduction-to-climate-change" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-book-open section-title-icon"></i> Introduction to Climate Change in Ghana</h2>
+                <h3>Causes, effects, and local impact</h3>
+            </div>
+            <p class="text-block">Climate change represents a significant long-term shift in global and regional climate patterns, with human activities being the primary driver since the 1800s, largely due to the burning of fossil fuels. In Ghana, this translates to tangible impacts such as increased temperatures, erratic rainfall patterns leading to both droughts and floods, and rising sea levels along our coastlines. These changes directly affect our environment, communities, and livelihoods. This section provides a comprehensive overview of climate change, its fundamental causes, and its specific impact on Ghana, including relevant examples and case studies that highlight the local context.</p>
+            <div class="visual-container">
+                <img src="/pics/Rising-Temperatures-Amplify-Instability-in-Africa-scaled.jpg" alt="Interactive map showing climate change impacts in Ghana">
+                <!-- <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Imagine an interactive map here, where you can click regions for data)</p> -->
+                </div>
+            <button class="cta-button" ><a href="blg.html" class="ctabtn">Learn More</a></button>
+        </section>
+
+        <section id="climate-change-effects-sectors" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line section-title-icon"></i> Climate Change Effects on Key Sectors</h2>
+                <h3>Impacts on agriculture, domestic life, and businesses</h3>
+            </div>
+            <p class="text-block">The pervasive effects of climate change extend across Ghana's vital sectors. In agriculture, reduced crop yields due to unpredictable weather patterns and increased pest infestations threaten food security and farmer incomes. Domestic life is impacted by water scarcity in many regions, forcing communities to travel further for clean water, and by the increased frequency of floods that displace families and destroy homes. Businesses face disrupted supply chains, damage to infrastructure, and increased operational costs, particularly in sectors reliant on natural resources. This section discusses these critical impacts in detail, providing insights into how climate change is reshaping daily life and economic stability in Ghana.</p>
+            <div class="visual-container">
+                <img loading="lazy" src="/pics/nfg.webp" alt="Images or charts illustrating climate change effects on Ghanaian sectors">
+            </div>
+            <button class="cta-button" ><a href="case-studies.html" class="ctabtn">Explore Case Studies</a></button>
+        </section>
+
+        <section id="ghanas-response" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-leaf section-title-icon"></i> Ghana's Response to Climate Change</h2>
+                <h3>Policies, initiatives, and local solutions</h3>
+            </div>
+            <p class="text-block">Ghana is actively engaged in addressing the challenges posed by climate change, demonstrating a commitment to building a sustainable and resilient future. This section provides an overview of the nation's multi-faceted efforts to mitigate climate change and adapt to its impacts. We highlight key government policies and strategies aimed at reducing emissions and promoting green development. Furthermore, we showcase inspiring community-led initiatives, such as reforestation projects and waste management programs, and innovative solutions being developed by local businesses, from solar energy startups to sustainable agriculture ventures. Discover how these collective actions are making a tangible difference across Ghana.</p>
+            <div class="visual-container">
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Vk1tWU-y7t4?si=1qKF-wwZRESQRvvF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <!-- <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/L_Guz000P8A?rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                </div>
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">Expert Interview or Documentary </p>
+                </div>
+            <!-- <button class="cta-button" onclick="location.href='get-involved.html'">Get Involved</button> -->
+        </section>
+
+        <section id="quiz-section" class="quiz-section">
+            <h2 class="section-title"><i class="fas fa-question-circle section-title-icon"></i> Test Your Knowledge</h2>
+            <h3>See how much you've learned about climate change in Ghana.</h3>
+
+            <div class="quiz-container">
+                <div id="quiz-display">
+                    <p class="quiz-question-display" id="question-text"></p>
+                    <div class="quiz-options" id="options-container">
+                        </div>
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                    <div class="quiz-progress" id="quiz-progress">Question 1 of 2</div>
+                    <div class="quiz-navigation">
+                        <button id="submit-answer-btn">Submit Answer</button>
+                        <button id="next-question-btn" style="display: none;">Next Question</button>
+                    </div>
+                </div>
+
+                <div class="leaderboard-section">
+                    <h3><i class="fas fa-trophy section-title-icon"></i> Leaderboard</h3>
+                    <ul class="leaderboard-list" id="leaderboard-list">
+                        </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="glossary-section" class="glossary-section">
+            <h2 class="section-title"><i class="fas fa-lightbulb section-title-icon"></i> Key Terms</h2>
+            <h3>Understanding the language of climate change.</h3>
+            <div class="glossary-list">
+                <div class="glossary-item">
+                    <h3>Carbon Footprint</h3>
+                    <p>The total amount of greenhouse gases (including carbon dioxide and methane) that are generated by our actions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Greenhouse Gases (GHGs)</h3>
+                    <p>Gases in Earth’s atmosphere that trap heat. They let sunlight pass through the atmosphere, but they prevent the heat that the sunlight brings from leaving the atmosphere.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Adaptation</h3>
+                    <p>Adjustments in natural or human systems in response to actual or expected climatic stimuli or their effects, which moderates harm or exploits beneficial opportunities.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Mitigation</h3>
+                    <p>Actions taken to reduce or prevent the emission of greenhouse gases and to enhance the sinks that absorb them.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Deforestation</h3>
+                    <p>The clearing of forests by logging or burning, typically for agricultural or other land uses, which contributes significantly to climate change.</p>
+                </div>
+                <div class="glossary-item">
+                    <h3>Galamsey</h3>
+                    <p>A local Ghanaian term for illegal small-scale gold mining, which often involves significant environmental degradation, including deforestation and water pollution.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <h2 class="section-title"><i class="fas fa-question-circle section-title-icon"></i> Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is the difference between climate change and global warming? <i class="fas fa-chevron-down"></i></h3>
+                <p>Global warming refers specifically to the long-term heating of Earth's climate system observed since the pre-industrial period (between 1850 and 1900) due to human activities, primarily fossil fuel burning, which increases heat-trapping greenhouse gas levels in Earth's atmosphere. The term is frequently used interchangeably with the term climate change, though the latter refers to both human- and naturally produced warming and the effects it has on our planet.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How does deforestation contribute to climate change? <i class="fas fa-chevron-down"></i></h3>
+                <p>Forests play a crucial role in regulating the climate by absorbing carbon dioxide from the atmosphere. When forests are cleared or burned, they release the stored carbon back into the atmosphere, contributing to greenhouse gas emissions. Deforestation also reduces the planet's capacity to absorb future carbon emissions, exacerbating climate change.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What are renewable energy sources? <i class="fas fa-chevron-down"></i></h3>
+                <p>Renewable energy sources are natural resources that replenish themselves over relatively short periods and do not deplete. Examples include solar power (from the sun), wind power (from wind turbines), hydropower (from moving water), geothermal energy (from Earth's internal heat), and biomass energy (from organic materials).</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is sustainable agriculture? <i class="fas fa-chevron-down"></i></h3>
+                <p>Sustainable agriculture is a method of farming that aims to produce food in a way that is environmentally friendly, economically viable, and socially responsible. It focuses on practices that conserve natural resources, protect biodiversity, reduce pollution, and ensure the long-term productivity of agricultural lands, often including techniques like crop rotation, organic farming, and water-efficient irrigation.</p>
+            </div>
+        </section>
+
+        <section class="bottom-nav-links">
+            <h3>Explore More on GreenGhana Alliance</h3>
+            <ul>
+                <li><a href="index.html">Go to Homepage</a></li>
+                <li><a href="act-now.html">Take Action Now</a></li>
+                <li><a href="media.html">Browse Media</a></li>
+                <li><a href="about.html">About Us & Contact</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <aside class="sidebar" id="sidebar">
+        <h3 class="sidebar-section-title">GreenGhana Alliance</h3>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="learn.html"><i class="fas fa-book-open"></i> Learn</a></li>
+            <li><a href="act-now.html"><i class="fas fa-leaf"></i> Act Now</a></li>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us & Contact</a></li>
+        </ul>
+        <h3 class="sidebar-section-title">Page Sections</h3>
+        <ul>
+            <li><a href="#introduction-to-climate-change"><i class="fas fa-info-circle"></i> Introduction to Climate Change in Ghana</a></li>
+            <li><a href="#climate-change-effects-sectors"><i class="fas fa-chart-line"></i> Climate Change Effects on Key Sectors</a></li>
+            <li><a href="#ghanas-response"><i class="fas fa-handshake"></i> Ghana's Response to Climate Change</a></li>
+            <li><a href="#quiz-section"><i class="fas fa-question-circle"></i> Test Your Knowledge (Quiz)</a></li>
+            <li><a href="#glossary-section"><i class="fas fa-lightbulb"></i> Key Terms (Glossary)</a></li>
+            <li><a href="#faq"><i class="fas fa-question"></i> FAQs</a></li>
+        </ul>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GreenGhana Alliance</h3>
+                <p>© 2025 All rights reserved.</p>
+                <p>Empowering youth for a sustainable Ghana.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="act-now.html">Act Now</a>
+                <a href="media.html">Media</a>
+                <a href="about.html">About Us & Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/media.html" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com/media.html&text=Explore%20compelling%20climate%20stories%20and%20media%20from%20GreenGhana%20Alliance!" target="_blank" rel="noopener noreferrer" class="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://api.whatsapp.com/send?text=Explore%20compelling%20climate%20stories%20and%20media%20from%20GreenGhana%20Alliance!%20https://yourwebsite.com/media.html" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:?subject=Check%20out%20GreenGhana%20Alliance%20Media!&body=Explore%20compelling%20climate%20stories%20and%20media%20from%20GreenGhana%20Alliance!%20https://yourwebsite.com/media.html" target="_blank" rel="noopener noreferrer" class="email" aria-label="Share via Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Updated</h3>
+                <p class="newsletter-description">Stay informed with our latest news and updates.</p>
+                <form class="newsletter-form" id="footer-newsletter-form">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <button class="back-to-top" id="backToTopBtn"><i class="fas fa-arrow-up"></i></button>
+    </footer>
+
+    <div class="modal-overlay" id="customMessageBoxOverlay">
+        <div class="modal-card" id="customMessageBoxCard">
+            <button class="close-btn" id="closeMessageBox">×</button>
+            <h3 id="messageBoxTitle"></h3>
+            <div id="messageBoxContent"></div>
+            <a href="#" class="cta-button" id="messageBoxButton">OK</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="quiz-completion-modal">
+        <div class="modal-card">
+            <button class="close-btn" id="closeQuizCompletionModal">×</button>
+            <h3>Congratulations!</h3>
+            <p id="quiz-completion-message"></p>
+            <a href="full-quiz-page.html" class="cta-button">Take the Full Quiz</a>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, query, limit, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+        // Get elements
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('navLinks');
+        const learnDropdownToggle = document.getElementById('learnDropdownToggle');
+        const learnDropdownParent = learnDropdownToggle.parentElement; // The <li> element
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay'); // Get the overlay element
+
+        // Quiz elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const submitAnswerBtn = document.getElementById('submit-answer-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const quizFeedback = document.getElementById('quiz-feedback');
+        const quizProgress = document.getElementById('quiz-progress');
+        const quizCompletionModal = document.getElementById('quiz-completion-modal');
+        const closeQuizCompletionModalBtn = document.getElementById('closeQuizCompletionModal');
+        const quizCompletionMessage = document.getElementById('quiz-completion-message');
+        const leaderboardList = document.getElementById('leaderboard-list');
+
+        // Firebase variables
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let userEmail = null; // To store the authenticated user's email
+
+        const ADMIN_EMAIL = 'selasikwame2006@gmail.com'; // Your admin email
+
+        // Quiz State
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const NUM_QUESTIONS_TO_ASK = 2; // User can only answer 2 questions on this page
+
+        // Sample Quiz Questions (can be expanded to 50 or more)
+        const allQuizQuestions = [
+            {
+                question: "Which of the following is a primary impact of climate change observed in Ghana?",
+                options: ["Stable rainfall patterns", "Increased temperatures and erratic rainfall", "Decreased sea levels", "Reduced pest infestations"],
+                correctAnswer: "Increased temperatures and erratic rainfall"
+            },
+            {
+                question: "What is 'Galamsey' primarily known for contributing to in Ghana's environment?",
+                options: ["Increased agricultural yields", "Reforestation efforts", "Deforestation and water pollution", "Sustainable energy production"],
+                correctAnswer: "Deforestation and water pollution"
+            },
+            {
+                question: "What is the main cause of human-induced climate change?",
+                options: ["Volcanic eruptions", "Burning of fossil fuels", "Ocean currents", "Sunspot activity"],
+                correctAnswer: "Burning of fossil fuels"
+            },
+            {
+                question: "Which sector in Ghana is most vulnerable to climate change impacts due to its reliance on rainfall?",
+                options: ["Mining", "Tourism", "Agriculture", "Manufacturing"],
+                correctAnswer: "Agriculture"
+            },
+            {
+                question: "What does 'climate adaptation' refer to?",
+                options: ["Reducing greenhouse gas emissions", "Adjusting to actual or expected climate change effects", "Generating renewable energy", "Predicting future weather patterns"],
+                correctAnswer: "Adjusting to actual or expected climate change effects"
+            },
+            {
+                question: "Which of these is a renewable energy source being explored in Ghana?",
+                options: ["Coal", "Natural Gas", "Solar Power", "Oil"],
+                correctAnswer: "Solar Power"
+            },
+            {
+                question: "What is the term for the long-term shift in global or regional climate patterns?",
+                options: ["Global warming", "Weather change", "Climate variability", "Climate change"],
+                correctAnswer: "Climate change"
+            },
+            {
+                question: "How do trees help in mitigating climate change?",
+                options: ["They reflect sunlight into space", "They absorb carbon dioxide from the atmosphere", "They increase water evaporation", "They produce more oxygen than carbon dioxide"],
+                correctAnswer: "They absorb carbon dioxide from the atmosphere"
+            },
+            {
+                question: "Which international agreement aims to limit global warming to well below 2 degrees Celsius?",
+                options: ["Kyoto Protocol", "Montreal Protocol", "Paris Agreement", "Rio Declaration"],
+                correctAnswer: "Paris Agreement"
+            },
+            {
+                question: "What is a common consequence of rising sea levels in coastal areas of Ghana?",
+                options: ["Increased freshwater availability", "Expansion of agricultural land", "Coastal erosion and displacement of communities", "Improved marine biodiversity"],
+                correctAnswer: "Coastal erosion and displacement of communities"
+            }
+        ];
+
+        // Initialize Firebase
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            console.log("Firebase initialized. App ID:", appId);
+            console.log("Firebase Config:", firebaseConfig);
+
+            // --- Google Sign-In Integration (now in modal) ---
+            const modalGoogleSignInBtn = document.getElementById('modal-google-sign-in-btn');
+            const modalSignOutBtn = document.getElementById('modal-sign-out-btn');
+            const userAuthStatus = document.getElementById('user-auth-status');
+            const adminSettingsAccess = document.getElementById('admin-settings-access');
+            const goToAdminSettingsBtn = document.getElementById('go-to-admin-settings-btn');
+            const authModal = document.getElementById('auth-modal');
+            const closeAuthModalBtn = document.getElementById('closeAuthModal');
+
+            if (modalGoogleSignInBtn && modalSignOutBtn && auth) {
+                modalGoogleSignInBtn.addEventListener('click', async () => {
+                    const provider = new GoogleAuthProvider();
+                    try {
+                        await signInWithPopup(auth, provider);
+                        displayMessageBox('Signed In!', 'You have successfully signed in with your Google account. If your email matches the admin email, you now have settings access.', 'success');
+                        if(authModal) authModal.classList.remove('active');
+                    } catch (error) {
+                        console.error("Error signing in with Google:", error);
+                        displayMessageBox('Sign-In Failed', `Error: ${error.message}`, 'error');
+                    }
+                });
+
+                modalSignOutBtn.addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        displayMessageBox('Signed Out', 'You have been signed out.', 'info');
+                        if(authModal) authModal.classList.remove('active');
+                    } catch (error) {
+                        console.error("Error signing out:", error);
+                        displayMessageBox('Sign-Out Failed', `Error: ${error.message}`, 'error');
+                    }
+                });
+            }
+
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    userId = user.uid;
+                    userEmail = user.email;
+                    console.log("User authenticated:", userId, "Email:", userEmail);
+
+                    if(userAuthStatus) userAuthStatus.textContent = `Signed in as: ${user.displayName || user.email || 'User'}`;
+                    if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'none';
+                    if(modalSignOutBtn) modalSignOutBtn.style.display = 'inline-block';
+
+                    if (userEmail === ADMIN_EMAIL) {
+                        if(userAuthStatus) userAuthStatus.textContent = `Signed in as: Admin (${user.displayName || user.email})`;
+                        if(adminSettingsAccess) adminSettingsAccess.style.display = 'block';
+                    } else {
+                        if(adminSettingsAccess) adminSettingsAccess.style.display = 'none';
+                    }
+                    // Fetch leaderboard once user is authenticated
+                    fetchLeaderboard();
+                } else {
+                    userId = null;
+                    userEmail = null;
+                    console.log("User not authenticated, or signed out.");
+                    if(userAuthStatus) userAuthStatus.textContent = 'Not signed in.';
+                    if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'inline-block';
+                    if(modalSignOutBtn) modalSignOutBtn.style.display = 'none';
+                    if(adminSettingsAccess) adminSettingsAccess.style.display = 'none';
+
+                    if (typeof __initial_auth_token !== 'undefined') {
+                        signInWithCustomToken(auth, __initial_auth_token)
+                            .then((userCredential) => {
+                                userId = userCredential.user.uid;
+                                userEmail = userCredential.user.email;
+                                console.log("Signed in with custom token:", userId, "Email:", userEmail);
+                                if(userAuthStatus) userAuthStatus.textContent = `Signed in as: Guest User (${userCredential.user.displayName || userCredential.user.email || 'Anonymous'})`;
+                                if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'none';
+                                if(modalSignOutBtn) modalSignOutBtn.style.display = 'inline-block';
+                                fetchLeaderboard(); // Fetch leaderboard after custom token sign-in
+                            })
+                            .catch((error) => {
+                                console.error("Error signing in with custom token:", error);
+                                signInAnonymously(auth)
+                                    .then((userCredential) => {
+                                        userId = userCredential.user.uid;
+                                        userEmail = null;
+                                        console.log("Signed in anonymously:", userId);
+                                        if(userAuthStatus) userAuthStatus.textContent = 'Signed in as: Guest User (Anonymous)';
+                                        if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'none';
+                                        if(modalSignOutBtn) modalSignOutBtn.style.display = 'inline-block';
+                                        fetchLeaderboard(); // Fetch leaderboard after anonymous sign-in
+                                    });
+                            });
+                    } else {
+                        signInAnonymously(auth)
+                            .then((userCredential) => {
+                                userId = userCredential.user.uid;
+                                userEmail = null;
+                                console.log("Signed in anonymously:", userId);
+                                if(userAuthStatus) userAuthStatus.textContent = 'Signed in as: Guest User (Anonymous)';
+                                if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'none';
+                                if(modalSignOutBtn) modalSignOutBtn.style.display = 'inline-block';
+                                fetchLeaderboard(); // Fetch leaderboard after anonymous sign-in
+                            })
+                            .catch((error) => {
+                                console.error("Error signing in anonymously:", error);
+                                displayMessageBox('Authentication Error', 'Could not set up user authentication. Some features may be limited.', 'error');
+                            });
+                    }
+                }
+            });
+        } else {
+            console.warn("Firebase config not found. Authentication and data persistence features will not be available.");
+            // Hide auth-related buttons and messages if Firebase is not configured
+            const authModal = document.getElementById('auth-modal');
+            const userAuthStatus = document.getElementById('user-auth-status');
+            const modalGoogleSignInBtn = document.getElementById('modal-google-sign-in-btn');
+            const modalSignOutBtn = document.getElementById('modal-sign-out-btn');
+            const adminSettingsAccess = document.getElementById('admin-settings-access');
+
+            if(userAuthStatus) userAuthStatus.textContent = 'Firebase Not Configured';
+            if(modalGoogleSignInBtn) modalGoogleSignInBtn.style.display = 'none';
+            if(modalSignOutBtn) modalSignOutBtn.style.display = 'none';
+            if(adminSettingsAccess) adminSettingsAccess.style.display = 'none';
+        }
+
+
+        // 1. Hamburger Menu Toggle (for mobile navigation)
+        mobileMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active'); // Activate the overlay
+        });
+
+        // Close sidebar when clicking on the overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active'); // Deactivate the overlay
+        });
+
+        // Close sidebar when a link is clicked
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // 2. Click-to-Toggle Dropdown for "Learn" on all devices
+        learnDropdownToggle.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            learnDropdownParent.classList.toggle('open');
+            // Close other dropdowns if any (though only one here)
+            document.querySelectorAll('.nav-links li.dropdown.open').forEach(item => {
+                if (item !== learnDropdownParent) {
+                    item.classList.remove('open');
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside (optional, but good UX)
+        document.addEventListener('click', (event) => {
+            if (!learnDropdownParent.contains(event.target) && !mobileMenu.contains(event.target) && !sidebar.contains(event.target)) {
+                learnDropdownParent.classList.remove('open');
+            }
+        });
+
+
+        // 3. FAQ Accordion functionality
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const icon = item.querySelector('i');
+
+                // Close all other open FAQ items
+                document.querySelectorAll('.faq-item p.show').forEach(otherAnswer => {
+                    if (otherAnswer !== answer) {
+                        otherAnswer.classList.remove('show');
+                        otherAnswer.previousElementSibling.classList.remove('active');
+                        otherAnswer.previousElementSibling.querySelector('i').classList.remove('fa-chevron-up');
+                        otherAnswer.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
+                    }
+                });
+
+                // Toggle the clicked FAQ item
+                answer.classList.toggle('show');
+                item.classList.toggle('active');
+                if (answer.classList.contains('show')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // 4. Back to Top button functionality
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 5. Smooth scrolling for internal anchor links (for dropdown and sidebar)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu and dropdown after clicking a link
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+                if (learnDropdownParent.classList.contains('open')) {
+                    learnDropdownParent.classList.remove('open');
+                }
+                // Close sidebar if open
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Custom Message Box (Modal) Functionality ---
+        const messageBoxOverlay = document.getElementById('customMessageBoxOverlay');
+        const messageBoxCard = document.getElementById('customMessageBoxCard');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxContent = document.getElementById('messageBoxContent');
+        const messageBoxButton = document.getElementById('messageBoxButton');
+        const closeMessageBox = document.getElementById('closeMessageBox');
+
+        function displayMessageBox(title, content, type = 'info', showButton = true, callback = null) {
+            messageBoxTitle.textContent = title;
+            if (typeof content === 'string') {
+                messageBoxContent.textContent = content;
+            } else {
+                messageBoxContent.innerHTML = '';
+                messageBoxContent.appendChild(content);
+            }
+
+            // Reset button classes and styles
+            messageBoxButton.className = 'cta-button'; // Always start with cta-button class
+            messageBoxButton.style.backgroundImage = ''; // Clear previous gradient
+            messageBoxButton.style.backgroundColor = ''; // Clear previous solid color
+            messageBoxButton.style.marginLeft = ''; // Clear previous margin
+
+            if (type === 'error') {
+                messageBoxTitle.style.color = 'var(--uncommitted-red)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, #D32F2F 0%, #B71C1C 100%)';
+            } else if (type === 'success') {
+                messageBoxTitle.style.color = 'var(--primary-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--primary-green) 0%, var(--dark-green) 100%)';
+            } else if (type === 'share') {
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            } else if (type === 'confirm') { // Style for confirmation
+                messageBoxTitle.style.color = 'var(--accent-orange)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%)';
+                
+                // Create a "Cancel" button for confirmation dialogs
+                const existingCancelButton = messageBoxContent.querySelector('.cancel-button');
+                if (existingCancelButton) existingCancelButton.remove(); // Remove if already exists
+
+                const cancelButton = document.createElement('a');
+                cancelButton.href = "#";
+                cancelButton.classList.add('cta-button', 'cancel-button'); // Apply cta-button class
+                cancelButton.textContent = "Cancel";
+                cancelButton.style.marginLeft = '15px';
+                cancelButton.style.backgroundImage = 'none'; // No gradient for cancel
+                cancelButton.style.backgroundColor = 'var(--neutral-gray)'; // Solid gray background
+                cancelButton.style.color = 'var(--white)';
+                cancelButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(false); // Indicate cancellation
+                }, { once: true }); // Ensure it only fires once
+                messageBoxContent.appendChild(cancelButton); // Add cancel button
+
+                // Modify the OK button to pass true for confirmation
+                messageBoxButton.replaceWith(messageBoxButton.cloneNode(true)); // Clone to remove old listeners
+                const newMessageBoxButton = document.getElementById('messageBoxButton');
+                newMessageBoxButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(true); // Indicate confirmation
+                }, { once: true }); // Ensure it only fires once
+
+            }
+            else { // Default info
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            }
+
+            if (showButton) {
+                messageBoxButton.style.display = 'inline-block';
+                if (type !== 'confirm') { // Only re-add listener if not a confirm type (handled above)
+                    // Remove previous event listener to avoid multiple calls
+                    messageBoxButton.replaceWith(messageBoxButton.cloneNode(true));
+                    document.getElementById('messageBoxButton').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        messageBoxOverlay.classList.remove('active');
+                        if (callback) callback();
+                    }, { once: true });
+                }
+            } else {
+                messageBoxButton.style.display = 'none';
+            }
+
+            messageBoxOverlay.classList.add('active');
+        }
+
+        closeMessageBox.addEventListener('click', () => {
+            messageBoxOverlay.classList.remove('active');
+        });
+
+        messageBoxOverlay.addEventListener('click', (e) => {
+            if (e.target === messageBoxOverlay) {
+                messageBoxOverlay.classList.remove('active');
+            }
+        });
+
+        // --- Footer Newsletter Subscribe Button Feedback ---
+        const footerSubscribeButton = document.querySelector('#footer-newsletter-form button[type="submit"]');
+
+        if (footerSubscribeButton) {
+            footerSubscribeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                displayMessageBox('Subscription Successful!', 'Thank you for subscribing to our newsletter! You\'ll receive updates directly in your inbox.', 'success');
+            });
+        }
+
+        // --- Social Media Share Functionality (Integrated) ---
+        const socialLinks = document.querySelectorAll('.footer-section .social-links a');
+
+        socialLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                const isShareLink = link.href.includes('facebook.com/sharer') ||
+                                    link.href.includes('twitter.com/intent') ||
+                                    link.href.includes('api.whatsapp.com') ||
+                                    link.href.includes('mailto:');
+
+                if (isShareLink) {
+                    event.preventDefault();
+                    window.open(link.href, '_blank', 'width=600,height=400');
+                }
+            });
+        });
+
+        // --- Quiz Logic ---
+
+        // Function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Initialize quiz
+        function startQuiz() {
+            // Shuffle all questions and select the first NUM_QUESTIONS_TO_ASK
+            shuffleArray(allQuizQuestions);
+            quizQuestions = allQuizQuestions.slice(0, NUM_QUESTIONS_TO_ASK);
+            currentQuestionIndex = 0;
+            score = 0;
+            displayQuestion();
+            quizFeedback.textContent = '';
+            submitAnswerBtn.style.display = 'inline-block';
+            nextQuestionBtn.style.display = 'none';
+        }
+
+        // Display current question
+        function displayQuestion() {
+            if (currentQuestionIndex < quizQuestions.length) {
+                const question = quizQuestions[currentQuestionIndex];
+                questionText.textContent = question.question;
+                optionsContainer.innerHTML = '';
+                quizFeedback.textContent = ''; // Clear previous feedback
+
+                shuffleArray(question.options); // Shuffle options for each question
+
+                question.options.forEach((option, index) => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = 'quiz-option';
+                    input.value = option;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(option));
+                    optionsContainer.appendChild(label);
+                });
+                quizProgress.textContent = `Question ${currentQuestionIndex + 1} of ${NUM_QUESTIONS_TO_ASK}`;
+                submitAnswerBtn.disabled = false; // Enable submit button
+            } else {
+                // Quiz finished on this page
+                showQuizCompletionModal();
+            }
+        }
+
+        // Check answer
+        submitAnswerBtn.addEventListener('click', () => {
+            const selectedOption = document.querySelector('input[name="quiz-option"]:checked');
+            if (!selectedOption) {
+                displayMessageBox('No Answer Selected', 'Please select an answer before submitting.', 'info');
+                return;
+            }
+
+            const userAnswer = selectedOption.value;
+            const correctAnswer = quizQuestions[currentQuestionIndex].correctAnswer;
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                quizFeedback.textContent = 'Correct!';
+                quizFeedback.classList.remove('incorrect');
+                quizFeedback.classList.add('correct');
+            } else {
+                quizFeedback.textContent = `Incorrect. The correct answer was: ${correctAnswer}`;
+                quizFeedback.classList.remove('correct');
+                quizFeedback.classList.add('incorrect');
+            }
+
+            // Disable radio buttons after submission
+            document.querySelectorAll('input[name="quiz-option"]').forEach(radio => {
+                radio.disabled = true;
+            });
+
+            submitAnswerBtn.style.display = 'none';
+            nextQuestionBtn.style.display = 'inline-block';
+        });
+
+        // Go to next question or end quiz
+        nextQuestionBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < NUM_QUESTIONS_TO_ASK) {
+                displayQuestion();
+                submitAnswerBtn.style.display = 'inline-block';
+                nextQuestionBtn.style.display = 'none';
+            } else {
+                showQuizCompletionModal();
+            }
+        });
+
+        // Show quiz completion modal
+        function showQuizCompletionModal() {
+            quizCompletionMessage.textContent = `You answered ${score} out of ${NUM_QUESTIONS_TO_ASK} questions correctly!`;
+            quizCompletionModal.classList.add('active');
+            // Add score to leaderboard
+            if (userId && db) { // Ensure Firebase is initialized and user is authenticated
+                addScoreToLeaderboard(userId, score);
+            } else {
+                console.warn("Cannot add score to leaderboard: Firebase not initialized or user not authenticated.");
+            }
+        }
+
+        // Close quiz completion modal
+        closeQuizCompletionModalBtn.addEventListener('click', () => {
+            quizCompletionModal.classList.remove('active');
+            startQuiz(); // Restart quiz for another attempt
+        });
+
+        quizCompletionModal.addEventListener('click', (e) => {
+            if (e.target === quizCompletionModal) {
+                quizCompletionModal.classList.remove('active');
+                startQuiz(); // Restart quiz if clicked outside
+            }
+        });
+
+        // --- Leaderboard Functions (Firestore) ---
+
+        // Add score to Firestore leaderboard
+        async function addScoreToLeaderboard(uid, score) {
+            try {
+                const leaderboardCollection = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+                await addDoc(leaderboardCollection, {
+                    userId: uid,
+                    score: score,
+                    timestamp: serverTimestamp()
+                });
+                console.log("Score added to leaderboard successfully!");
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                displayMessageBox('Error', 'Could not save your score to the leaderboard. Please try again later.', 'error');
+            }
+        }
+
+        // Fetch and display leaderboard in real-time
+        function fetchLeaderboard() {
+            if (!db) {
+                console.warn("Firestore not initialized. Cannot fetch leaderboard.");
+                return;
+            }
+            const leaderboardCollection = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+            // Order by score descending, then by timestamp descending for ties
+            // NOTE: Firestore orderBy with multiple fields might require composite indexes.
+            // For simplicity and to avoid index errors, we'll fetch and sort in memory.
+            // If you have a large leaderboard, consider adding composite indexes in Firestore.
+            const q = query(leaderboardCollection, limit(10)); // Limit to top 10 for display
+
+            onSnapshot(q, (snapshot) => {
+                const scores = [];
+                snapshot.forEach((doc) => {
+                    scores.push(doc.data());
+                });
+
+                // Sort in memory by score (descending), then timestamp (descending)
+                scores.sort((a, b) => {
+                    if (b.score !== a.score) {
+                        return b.score - a.score;
+                    }
+                    // Handle cases where timestamp might be null (e.g., if not using serverTimestamp)
+                    const aTime = a.timestamp ? a.timestamp.toDate().getTime() : 0;
+                    const bTime = b.timestamp ? b.timestamp.toDate().getTime() : 0;
+                    return bTime - aTime;
+                });
+
+                leaderboardList.innerHTML = ''; // Clear current list
+                scores.forEach((entry, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('leaderboard-item');
+                    // Display full userId for identification
+                    const displayName = entry.userId === userId ? `You (${entry.userId})` : entry.userId;
+                    listItem.innerHTML = `
+                        <span class="rank">${index + 1}.</span>
+                        <span class="name">${displayName}</span>
+                        <span class="score">${entry.score} / ${NUM_QUESTIONS_TO_ASK}</span>
+                    `;
+                    leaderboardList.appendChild(listItem);
+                });
+
+                if (scores.length === 0) {
+                    leaderboardList.innerHTML = '<li class="leaderboard-item">No scores yet! Be the first.</li>';
+                }
+            }, (error) => {
+                console.error("Error fetching leaderboard: ", error);
+                leaderboardList.innerHTML = '<li class="leaderboard-item" style="color: var(--incorrect-answer);">Error loading leaderboard.</li>';
+            });
+        }
+
+        // Start the quiz when the page loads
+        document.addEventListener('DOMContentLoaded', startQuiz);
+
+    </script>
+
+</body>
+</html>

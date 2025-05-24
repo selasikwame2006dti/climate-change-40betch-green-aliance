@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Change Case Studies in Ghana - GreenGhana Alliance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables for Color Palette (consistent with homepage) */
+        :root {
+            --primary-green: #2E7D32; /* Deep Forest Green */
+            --secondary-blue: #2196F3; /* Vibrant Sky Blue */
+            --accent-orange: #FF9800; /* Energetic Sunrise Orange */
+            --light-green: #81C784;
+            --dark-green: #1B5E20;
+            --light-blue: #BBDEFB;
+            --dark-blue: #1565C0;
+            --neutral-gray: #424242;
+            --light-gray: #EEEEEE;
+            --white: #FFFFFF;
+            --dark-orange-hover: #E68A00; /* Slightly darker orange for hover */
+            --correct-answer: #4CAF50; /* Green for correct */
+            --incorrect-answer: #F44336; /* Red for incorrect */
+            --uncommitted-red: #D32F2F; /* Red for uncommitted progress */
+            --premium-bg-light: rgba(255, 255, 255, 0.8); /* Lighter translucent white */
+            --premium-border: rgba(255, 255, 255, 0.6); /* Slightly more opaque white border */
+            --premium-shadow-light: rgba(0, 0, 0, 0.05);
+            --premium-shadow-medium: rgba(0, 0, 0, 0.15);
+            --premium-shadow-strong: rgba(0, 0, 0, 0.25);
+        }
+
+        /* Universal Box-Sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Typography Defaults */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--neutral-gray);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scroll due to sidebar */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-green);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark-green);
+            display: flex; /* Allow icon and text to be on same line */
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Space between icon and text */
+        }
+
+        /* Animated Icons for Section Titles */
+        .section-title-icon {
+            font-size: 1.2em; /* Slightly larger than text */
+            color: var(--accent-orange);
+            animation: pulse 2s infinite ease-in-out; /* Subtle pulsing animation */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Header Styling */
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1em 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            color: var(--white);
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Mobile Menu Toggle (Hamburger) */
+        .menu-toggle {
+            display: none; /* Hidden by default on desktop */
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 4px 0;
+            transition: 0.4s;
+            border-radius: 2px;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative; /* For dropdown positioning */
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a i {
+            margin-left: 5px; /* Space for dropdown icon */
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none; /* Hidden by default */
+            position: absolute;
+            background-color: var(--dark-green);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            left: 0;
+            top: 100%; /* Position below the parent link */
+            padding: 10px 0;
+        }
+
+        .dropdown-content a {
+            color: var(--white);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: 400;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary-green);
+            color: var(--accent-orange);
+        }
+
+        /* Show dropdown on hover/active */
+        .nav-links li.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-links li.dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .nav-links li.dropdown.open > a i {
+            transform: rotate(180deg); /* Rotate icon when open */
+        }
+
+        /* Main Content Area */
+        /* main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        } */
+
+        /* Hero Section (Blog Header) */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.61),rgba(0, 0, 0, 0.623),rgba(0, 0, 0, 0.623)), url('/pics/pexels-mrwandart-2827735.jpg'); /* Placeholder image for hero */
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            width: 100%;
+            height: 85vh;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            color: var(--accent-orange);
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+
+        /* Page Sub-headline */
+        .page-sub-headline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2em;
+            text-align: center;
+            color: var(--secondary-blue);
+            margin-bottom: 60px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Content Section (Blog Post Card) */
+        .content-section {
+            background-color: var(--premium-bg-light); /* Lighter translucent white */
+            padding: 60px 40px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px var(--premium-shadow-light); /* Softer shadow */
+            text-align: center; /* Center content within sections */
+            backdrop-filter: blur(5px) saturate(150%); /* Glass effect */
+            -webkit-backdrop-filter: blur(5px) saturate(150%);
+            border: 1px solid var(--premium-border); /* Subtle white border */
+            transition: all 0.3s ease-in-out;
+             max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .content-section:hover {
+            box-shadow: 0 12px 30px var(--premium-shadow-medium); /* Deeper shadow on hover */
+            transform: translateY(-3px); /* Subtle lift */
+        }
+
+        .content-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .content-section .section-header h2 {
+            font-size: 2.5em;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .content-section .section-header h3 {
+            font-size: 1.6em;
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+
+        .content-section .text-block {
+            font-size: 1.1em;
+            color: var(--neutral-gray);
+            margin-bottom: 30px;
+            text-align: justify;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .content-section ul {
+            list-style: disc inside;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            padding-left: 20px;
+            color: var(--neutral-gray);
+            font-size: 1.1em;
+        }
+
+        .content-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .content-section .visual-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000; /* Black background for video placeholder */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .content-section .visual-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .content-section .cta-button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%); /* Orange gradient */
+            color: var(--white);
+            border: none;
+            padding: 15px 35px; /* More padding */
+            font-size: 1.15em; /* Larger font */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 10px; /* More rounded */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Deeper shadow */
+            display: block;
+            margin: 0 auto;
+        }
+
+        .content-section .cta-button:hover {
+            background-position: 100% 0; /* Shift gradient */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* FAQ Section Styling (Copied from index.html) */
+        .faq-section {
+            background-color: var(--light-gray); /* Background behind FAQ items */
+            padding: 60px 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            text-align: center;
+             max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .faq-section .section-title {
+            margin-bottom: 30px;
+        }
+
+        .faq-section .faq-item {
+            background-image: linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%); /* Blue gradient */
+            color: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            text-align: left;
+            transition: all 0.3s ease-in-out;
+            border: none;
+        }
+
+        .faq-section .faq-item:hover {
+            background-position: 100% 0; /* Shift gradient on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .faq-section .faq-item h3 {
+            font-size: 1.3em;
+            color: var(--white); /* White text for question */
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-section .faq-item h3 i {
+            color: var(--accent-orange); /* Orange chevron */
+            transition: transform 0.3s ease;
+        }
+
+        .faq-section .faq-item h3.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-section .faq-item p {
+            font-size: 1em;
+            margin-top: 15px;
+            display: none; /* Hidden by default */
+            color: var(--light-gray); /* Lighter white for answer */
+            line-height: 1.6;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Subtle separator */
+        }
+
+        .faq-section .faq-item p.show {
+            display: block; /* Shown when active */
+        }
+
+        /* Bottom Navigation Links */
+        .bottom-nav-links {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .bottom-nav-links h3 {
+            color: var(--white);
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .bottom-nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .bottom-nav-links ul li a {
+            background-image: linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: block;
+        }
+
+        .bottom-nav-links ul li a:hover {
+            background-position: 100% 0;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        /* Footer Styling (consistent with homepage) */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--light-green);
+            text-decoration: none;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            justify-content: flex-start;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.8em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        .newsletter-description {
+            color: var(--light-green);
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .newsletter-form button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 990;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--dark-green);
+            padding-top: 80px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 999;
+            color: var(--white);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h3 {
+            color: var(--white);
+            font-size: 1.5em;
+            padding: 0 20px 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--primary-green);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: var(--primary-green);
+            color: var(--accent-orange);
+        }
+
+        .sidebar-section-title {
+            color: var(--light-green);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            padding: 15px 20px 5px;
+            margin-top: 20px;
+            font-weight: 700;
+        }
+
+        /* Overlay for when sidebar is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal / Pop-up Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: var(--dark-green);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-card h3 {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .modal-card p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: var(--neutral-gray);
+        }
+
+        .modal-card .cta-button {
+            background-image: linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .modal-card .cta-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal-card .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: var(--dark-green);
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .modal-card .close-btn:hover {
+            color: var(--uncommitted-red);
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .nav-links li {
+                margin-left: 10px;
+            }
+            .content-section .visual-container img {
+                max-width: 90%;
+            }
+            .content-section, .faq-section {
+                padding: 50px 30px;
+            }
+            .faq-section .faq-item {
+                padding: 20px;
+            }
+            .bottom-nav-links {
+                padding: 30px 20px;
+            }
+            .bottom-nav-links ul li a {
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: var(--primary-green);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links li a {
+                padding: 15px 0;
+                justify-content: center;
+            }
+
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+                background-color: var(--dark-green);
+                border-radius: 0;
+            }
+            .dropdown-content a {
+                padding-left: 40px;
+                text-align: left;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+            .page-sub-headline {
+                font-size: 1.8em;
+            }
+            .content-section .section-header h2 {
+                font-size: 2em;
+            }
+            .content-section .section-header h3 {
+                font-size: 1.4em;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-section {
+                min-width: auto;
+                width: 100%;
+                text-align: center;
+            }
+            .newsletter-form {
+                align-items: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+            .modal-card {
+                width: 95%;
+                padding: 20px;
+            }
+            .faq-section .faq-item h3 {
+                font-size: 1.2em;
+            }
+            .faq-section .faq-item p {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 60px 15px;
+            }
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            .hero-section .cta-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .content-section {
+                padding: 30px 15px;
+            }
+            .content-section .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .faq-section {
+                padding: 30px 15px;
+            }
+            .faq-section .faq-item {
+                padding: 20px;
+            }
+            .bottom-nav-links h3 {
+                font-size: 1.5em;
+            }
+            .bottom-nav-links ul li a {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>GreenGhana Alliance</h1>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="learn.html" class="active" id="learnDropdownToggle">Learn <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="learn.html">Back to Learn Hub</a>
+                        <a href="#intro">Introduction to Case Studies</a>
+                        <a href="#flooding">Case Study: Urban Flooding in Accra</a>
+                        <a href="#drought">Case Study: Drought & Food Security in Northern Ghana</a>
+                        <a href="#coastal-erosion">Case Study: Coastal Erosion in Keta</a>
+                        <a href="#renewable-energy">Case Study: Solar Power Adoption</a>
+                        <a href="#reforestation">Case Study: Community Reforestation</a>
+                        <a href="#faq">FAQs</a>
+                    </div>
+                </li>
+                <!-- <li><a href="act-now.html">Act Now</a></li>
+                <li><a href="media.html">Media</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>Climate Change Case Studies in Ghana</h1>
+        </section>
+
+        <h2 class="page-sub-headline">Real stories of climate impact and resilience across Ghana.</h2>
+
+        <section id="intro" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marked-alt section-title-icon"></i> Understanding Climate Change Through Real Stories</h2>
+                <h3>Exploring specific examples of challenges and solutions in Ghana.</h3>
+            </div>
+            <p class="text-block">Climate change isn't just about global temperatures; it's about real changes happening in our communities, affecting people's lives, farms, and homes. To truly understand its impact in Ghana, it helps to look at specific examples – or "case studies." These stories show us how climate change is playing out on the ground and, importantly, how Ghanaians are finding ways to adapt and build a more resilient future. Let's dive into some key examples from across our nation.</p>
+            <div class="visual-container">
+                <img src="/pics/mappp.png" alt="Map of Ghana highlighting climate change hotspots">
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Imagine an interactive map showing different climate impact zones in Ghana)</p>
+            </div>
+        </section>
+
+        <section id="flooding" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cloud-showers-heavy section-title-icon"></i> Case Study 1: Urban Flooding in Accra</h2>
+                <h3>When the rains come, so do the challenges.</h3>
+            </div>
+            <p class="text-block">Accra, Ghana's capital, frequently experiences severe urban flooding, especially during the rainy seasons. This isn't just due to heavy rainfall; it's made worse by poor drainage systems, rapid urbanization, and improper waste disposal that chokes waterways. When floods hit, homes are submerged, businesses are disrupted, and essential services like electricity and transport are cut off. Families lose their belongings, and sometimes, lives are lost.</p>
+            <p class="text-block">However, communities and authorities are working on solutions. Efforts include dredging drains, improving urban planning, and encouraging proper waste management. Local initiatives also focus on early warning systems and community-led clean-up campaigns to reduce flood risks. This case study highlights the urgent need for resilient infrastructure and community participation in urban areas.</p>
+            <div class="visual-container">
+                <div class="video-container">
+                 <iframe width="560" height="315" src="https://www.youtube.com/embed/qw939PTExsE?si=ergcohp8D2GYiuat" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Short video documentary on Accra's flooding and community efforts)</p>
+            </div>
+        </section>
+
+        <section id="drought" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-sun section-title-icon"></i> Case Study 2: Drought & Food Security in Northern Ghana</h2>
+                <h3>Adapting to less rain, ensuring food for all.</h3>
+            </div>
+            <p class="text-block">While some parts of Ghana battle floods, the northern regions often face prolonged dry spells and droughts. This directly impacts agriculture, which is the main source of livelihood for many. When rains fail, crops like maize, millet, and sorghum wither, leading to food shortages and economic hardship for farmers and their families. Water scarcity also becomes a major challenge for both humans and livestock.</p>
+            <p class="text-block">To combat this, farmers are adopting "climate-smart" agricultural practices. These include using drought-resistant crop varieties, practicing conservation agriculture (like minimal tilling), and implementing efficient irrigation techniques. Government and NGOs are also supporting the construction of small dams and dugouts to store water for dry periods. These efforts are crucial for building food security in a changing climate.</p>
+            <div class="visual-container">
+                <img src="/pics/drought.jpg" alt="Infographic showing drought impact on crops and water sources">
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Infographic illustrating the impact of drought on crops and water sources in northern Ghana)</p>
+            </div>
+        </section>
+
+        <section id="coastal-erosion" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-water section-title-icon"></i> Case Study 3: Coastal Erosion in Keta</h2>
+                <h3>Protecting our shores and coastal communities.</h3>
+            </div>
+            <p class="text-block">Ghana's coastline, particularly areas like Keta in the Volta Region, is highly vulnerable to rising sea levels and increased wave action, leading to severe coastal erosion. This means the land is slowly being eaten away by the sea, forcing communities to abandon their homes and livelihoods. Fishing villages are disappearing, historical sites are at risk, and valuable land is lost.</p>
+            <p class="text-block">The government has invested in sea defense projects, like the Keta Sea Defence Project, to protect vulnerable areas. However, these are often expensive and can have environmental trade-offs. Communities are also exploring softer solutions like mangrove restoration, which helps to stabilize the coastline naturally. This case study highlights the delicate balance between protecting human settlements and preserving natural coastal ecosystems.</p>
+            <div class="visual-container">
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/qgPR1YYv4Xc?si=35SorAlBogNpqAcV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <!-- <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/L_Guz000P8A?rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                </div>
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Video showing the effects of coastal erosion and local protection efforts)</p>
+            </div>
+        </section>
+
+        <section id="renewable-energy" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-solar-panel section-title-icon"></i> Case Study 4: Solar Power Adoption in Rural Areas</h2>
+                <h3>Lighting up lives with clean energy.</h3>
+            </div>
+            <p class="text-block">One of Ghana's key strategies to mitigate climate change is to shift towards renewable energy. Solar power is a fantastic option, especially in our sunny climate. This case study looks at how solar energy is being adopted in rural communities, where access to traditional electricity might be limited or unreliable.</p>
+            <p class="text-block">Projects are installing solar panels for homes, schools, and health clinics, providing clean, reliable, and affordable electricity. This not only reduces reliance on fossil fuels (which cause greenhouse gas emissions) but also improves quality of life, allows students to study at night, and powers essential services. It's a win-win for both the environment and development.</p>
+            <div class="visual-container">
+                <img src="/pics/slrpanel1.png" alt="Infographic showing benefits of solar power in rural Ghana">
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Infographic on the benefits and process of solar panel installation in rural Ghana)</p>
+            </div>
+        </section>
+
+        <section id="reforestation" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-tree section-title-icon"></i> Case Study 5: Community-Led Reforestation Efforts</h2>
+                <h3>Bringing back our forests, one tree at a time.</h3>
+            </div>
+            <p class="text-block">Forests are vital for absorbing carbon dioxide, regulating rainfall, and supporting biodiversity. Due to deforestation, Ghana has lost significant forest cover. However, inspiring community-led reforestation and afforestation projects are making a difference. These initiatives involve local people actively planting trees, protecting existing forests, and promoting sustainable land use practices.</p>
+            <p class="text-block">From school children planting seedlings to women's groups establishing tree nurseries, these efforts are not only restoring degraded lands but also raising environmental awareness and providing alternative livelihoods. This case study shows the power of collective action and how restoring our natural environment is a powerful tool against climate change.</p>
+            <div class="visual-container">
+                <img src="/pics/ghplt.jpg" alt="Photo of community members participating in a tree planting event">
+                <p style="font-size: 0.9em; color: var(--neutral-gray); margin-top: 10px;">(Photo of community members actively participating in a tree planting event)</p>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <h2 class="section-title"><i class="fas fa-question-circle section-title-icon"></i> Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Why are these case studies important? <i class="fas fa-chevron-down"></i></h3>
+                <p>Case studies help us see how climate change affects real people and places in Ghana. They show that it's not just a distant problem, but something happening right here, and they also highlight the innovative solutions and resilience of our communities.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can communities really make a difference against climate change? <i class="fas fa-chevron-down"></i></h3>
+                <p>Absolutely! As seen in these case studies, local communities are often at the forefront of climate action. Their traditional knowledge, combined with new sustainable practices, plays a crucial role in adapting to impacts and building resilience from the ground up.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How can I learn more about specific projects? <i class="fas fa-chevron-down"></i></h3>
+                <p>Many organizations, both local and international, are involved in climate action projects in Ghana. You can often find more detailed information on the websites of the Environmental Protection Agency (EPA), various NGOs like A Rocha Ghana, or international bodies like UNDP and UNICEF Ghana. Our "Act Now" and "Media" pages also provide resources!</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is the role of youth in these case studies? <i class="fas fa-chevron-down"></i></h3>
+                <p>Youth play a vital role! From participating in tree-planting drives and community clean-ups to innovating new sustainable technologies and advocating for policy changes, young people are powerful agents of change in addressing climate challenges in Ghana.</p>
+            </div>
+        </section>
+
+        <section class="bottom-nav-links">
+            <h3>Explore More on GreenGhana Alliance</h3>
+            <ul>
+                <li><a href="index.html">Go to Homepage</a></li>
+                <li><a href="learn.html">Back to Learn Hub</a></li>
+                <li><a href="act-now.html">Take Action Now</a></li>
+                <li><a href="media.html">Browse Media</a></li>
+                <li><a href="about.html">About Us & Contact</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <aside class="sidebar" id="sidebar">
+        <h3 class="sidebar-section-title">GreenGhana Alliance</h3>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="learn.html"><i class="fas fa-book-open"></i> Learn Hub</a></li>
+            <li><a href="act-now.html"><i class="fas fa-leaf"></i> Act Now</a></li>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us & Contact</a></li>
+        </ul>
+        <h3 class="sidebar-section-title">Case Studies</h3>
+        <ul>
+            <li><a href="#intro"><i class="fas fa-info-circle"></i> Introduction</a></li>
+            <li><a href="#flooding"><i class="fas fa-cloud-showers-heavy"></i> Urban Flooding in Accra</a></li>
+            <li><a href="#drought"><i class="fas fa-sun"></i> Drought & Food Security</a></li>
+            <li><a href="#coastal-erosion"><i class="fas fa-water"></i> Coastal Erosion in Keta</a></li>
+            <li><a href="#renewable-energy"><i class="fas fa-solar-panel"></i> Solar Power Adoption</a></li>
+            <li><a href="#reforestation"><i class="fas fa-tree"></i> Community Reforestation</a></li>
+            <li><a href="#faq"><i class="fas fa-question"></i> FAQs</a></li>
+        </ul>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GreenGhana Alliance</h3>
+                <p>© 2025 All rights reserved.</p>
+                <p>Empowering youth for a sustainable Ghana.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="act-now.html">Act Now</a>
+                <a href="media.html">Media</a>
+                <a href="about.html">About Us & Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/case-studies-blog.html" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com/case-studies-blog.html&text=Explore%20climate%20change%20case%20studies%20in%20Ghana%20with%20GreenGhana%20Alliance!" target="_blank" rel="noopener noreferrer" class="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://api.whatsapp.com/send?text=Explore%20climate%20change%20case%20studies%20in%20Ghana%20with%20GreenGhana%20Alliance!%20https://yourwebsite.com/case-studies-blog.html" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:?subject=Check%20out%20GreenGhana%20Alliance%20Case%20Studies!&body=Explore%20climate%20change%20case%20studies%20in%20Ghana%20with%20GreenGhana%20Alliance!%20https://yourwebsite.com/case-studies-blog.html" target="_blank" rel="noopener noreferrer" class="email" aria-label="Share via Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Stay Updated</h3>
+                <p class="newsletter-description">Stay informed with our latest news and updates.</p>
+                <form class="newsletter-form" id="footer-newsletter-form">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <button class="back-to-top" id="backToTopBtn"><i class="fas fa-arrow-up"></i></button>
+    </footer>
+
+    <div class="modal-overlay" id="customMessageBoxOverlay">
+        <div class="modal-card" id="customMessageBoxCard">
+            <button class="close-btn" id="closeMessageBox">×</button>
+            <h3 id="messageBoxTitle"></h3>
+            <div id="messageBoxContent"></div>
+            <a href="#" class="cta-button" id="messageBoxButton">OK</a>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('navLinks');
+        const learnDropdownToggle = document.getElementById('learnDropdownToggle');
+        const learnDropdownParent = learnDropdownToggle.parentElement; // The <li> element
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay'); // Get the overlay element
+
+        // 1. Hamburger Menu Toggle (for mobile navigation)
+        mobileMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active'); // Activate the overlay
+        });
+
+        // Close sidebar when clicking on the overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active'); // Deactivate the overlay
+        });
+
+        // Close sidebar when a link is clicked
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // 2. Click-to-Toggle Dropdown for "Learn" on all devices
+        learnDropdownToggle.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            learnDropdownParent.classList.toggle('open');
+            // Close other dropdowns if any (though only one here)
+            document.querySelectorAll('.nav-links li.dropdown.open').forEach(item => {
+                if (item !== learnDropdownParent) {
+                    item.classList.remove('open');
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside (optional, but good UX)
+        document.addEventListener('click', (event) => {
+            if (!learnDropdownParent.contains(event.target) && !mobileMenu.contains(event.target) && !sidebar.contains(event.target)) {
+                learnDropdownParent.classList.remove('open');
+            }
+        });
+
+
+        // 3. FAQ Accordion functionality (Copied from index.html)
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const icon = item.querySelector('i');
+
+                // Close all other open FAQ items
+                document.querySelectorAll('.faq-item p.show').forEach(otherAnswer => {
+                    if (otherAnswer !== answer) {
+                        otherAnswer.classList.remove('show');
+                        otherAnswer.previousElementSibling.classList.remove('active');
+                        otherAnswer.previousElementSibling.querySelector('i').classList.remove('fa-chevron-up');
+                        otherAnswer.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
+                    }
+                });
+
+                // Toggle the clicked FAQ item
+                answer.classList.toggle('show');
+                item.classList.toggle('active');
+                if (answer.classList.contains('show')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // 4. Back to Top button functionality
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 5. Smooth scrolling for internal anchor links (for dropdown and sidebar)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu and dropdown after clicking a link
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+                if (learnDropdownParent.classList.contains('open')) {
+                    learnDropdownParent.classList.remove('open');
+                }
+                // Close sidebar if open
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Custom Message Box (Modal) Functionality ---
+        const messageBoxOverlay = document.getElementById('customMessageBoxOverlay');
+        const messageBoxCard = document.getElementById('customMessageBoxCard');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxContent = document.getElementById('messageBoxContent');
+        const messageBoxButton = document.getElementById('messageBoxButton');
+        const closeMessageBox = document.getElementById('closeMessageBox');
+
+        function displayMessageBox(title, content, type = 'info', showButton = true, callback = null) {
+            messageBoxTitle.textContent = title;
+            if (typeof content === 'string') {
+                messageBoxContent.textContent = content;
+            } else {
+                messageBoxContent.innerHTML = '';
+                messageBoxContent.appendChild(content);
+            }
+
+            // Reset button classes and styles
+            messageBoxButton.className = 'cta-button'; // Always start with cta-button class
+            messageBoxButton.style.backgroundImage = ''; // Clear previous gradient
+            messageBoxButton.style.backgroundColor = ''; // Clear previous solid color
+            messageBoxButton.style.marginLeft = ''; // Clear previous margin
+
+            if (type === 'error') {
+                messageBoxTitle.style.color = 'var(--uncommitted-red)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, #D32F2F 0%, #B71C1C 100%)';
+            } else if (type === 'success') {
+                messageBoxTitle.style.color = 'var(--primary-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--primary-green) 0%, var(--dark-green) 100%)';
+            } else if (type === 'share') {
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            } else if (type === 'confirm') { // Style for confirmation
+                messageBoxTitle.style.color = 'var(--accent-orange)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--accent-orange) 0%, var(--dark-orange-hover) 100%)';
+                
+                // Create a "Cancel" button for confirmation dialogs
+                const existingCancelButton = messageBoxContent.querySelector('.cancel-button');
+                if (existingCancelButton) existingCancelButton.remove(); // Remove if already exists
+
+                const cancelButton = document.createElement('a');
+                cancelButton.href = "#";
+                cancelButton.classList.add('cta-button', 'cancel-button'); // Apply cta-button class
+                cancelButton.textContent = "Cancel";
+                cancelButton.style.marginLeft = '15px';
+                cancelButton.style.backgroundImage = 'none'; // No gradient for cancel
+                cancelButton.style.backgroundColor = 'var(--neutral-gray)'; // Solid gray background
+                cancelButton.style.color = 'var(--white)';
+                cancelButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(false); // Indicate cancellation
+                }, { once: true }); // Ensure it only fires once
+                messageBoxContent.appendChild(cancelButton); // Add cancel button
+
+                // Modify the OK button to pass true for confirmation
+                messageBoxButton.replaceWith(messageBoxButton.cloneNode(true)); // Clone to remove old listeners
+                const newMessageBoxButton = document.getElementById('messageBoxButton');
+                newMessageBoxButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) callback(true); // Indicate confirmation
+                }, { once: true }); // Ensure it only fires once
+
+            }
+            else { // Default info
+                messageBoxTitle.style.color = 'var(--dark-green)';
+                messageBoxButton.style.backgroundImage = 'linear-gradient(to right, var(--secondary-blue) 0%, var(--dark-blue) 100%)';
+            }
+
+            if (showButton) {
+                messageBoxButton.style.display = 'inline-block';
+                if (type !== 'confirm') { // Only re-add listener if not a confirm type (handled above)
+                    // Remove previous event listener to avoid multiple calls
+                    messageBoxButton.replaceWith(messageBoxButton.cloneNode(true));
+                    document.getElementById('messageBoxButton').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        messageBoxOverlay.classList.remove('active');
+                        if (callback) callback();
+                    }, { once: true });
+                }
+            } else {
+                messageBoxButton.style.display = 'none';
+            }
+
+            messageBoxOverlay.classList.add('active');
+        }
+
+        closeMessageBox.addEventListener('click', () => {
+            messageBoxOverlay.classList.remove('active');
+        });
+
+        messageBoxOverlay.addEventListener('click', (e) => {
+            if (e.target === messageBoxOverlay) {
+                messageBoxOverlay.classList.remove('active');
+            }
+        });
+
+        // --- Footer Newsletter Subscribe Button Feedback ---
+        const footerSubscribeButton = document.querySelector('#footer-newsletter-form button[type="submit"]');
+
+        if (footerSubscribeButton) {
+            footerSubscribeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                displayMessageBox('Subscription Successful!', 'Thank you for subscribing to our newsletter! You\'ll receive updates directly in your inbox.', 'success');
+            });
+        }
+
+        // --- Social Media Share Functionality (Integrated) ---
+        const socialLinks = document.querySelectorAll('.footer-section .social-links a');
+
+        socialLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                const isShareLink = link.href.includes('facebook.com/sharer') ||
+                                    link.href.includes('twitter.com/intent') ||
+                                    link.href.includes('api.whatsapp.com') ||
+                                    link.href.includes('mailto:');
+
+                if (isShareLink) {
+                    event.preventDefault();
+                    window.open(link.href, '_blank', 'width=600,height=400');
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
